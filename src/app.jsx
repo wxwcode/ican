@@ -55,9 +55,12 @@ export const layout = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history; // 如果没有登录，重定向到 login
-
+      console.log(location)
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
       //   history.push(loginPath);
+      // }
+      // if (initialState?.currentUser?.name === 'wxw' && location.pathname === '/system/role') {
+      //   history.push('/user/403');
       // }
     },
     links: isDev
