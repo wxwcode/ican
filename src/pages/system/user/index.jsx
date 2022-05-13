@@ -5,7 +5,7 @@ import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import AddForm from './components/AddForm';
 import { getUserList } from '@/services/system/user/';
-import { useModel } from "umi";
+import { useModel } from 'umi';
 
 const TableList = () => {
   /** 新建窗口的弹窗 */
@@ -13,10 +13,10 @@ const TableList = () => {
   const actionRef = useRef();
   const [currentRow, setCurrentRow] = useState();
   /** 国际化配置 */
-  const { initialState, loading, error, refresh, setInitialState } = useModel('@@initialState')
-  console.log(initialState, 'initialState')
+  const { initialState, loading, error, refresh, setInitialState } = useModel('@@initialState');
+  console.log(initialState, 'initialState');
   return (
-    <PageContainer waterMarkProps={{ gapX: 120, gapY: 100}}>
+    <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
       <ProTable
         headerTitle="查询表格"
         actionRef={actionRef}
@@ -26,7 +26,7 @@ const TableList = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              setCurrentRow(null)
+              setCurrentRow(null);
               handleVisible(true);
             }}
           >
@@ -44,19 +44,19 @@ const TableList = () => {
                 key="config"
                 onClick={() => {
                   // formRef.current.edit(data)
-                  setCurrentRow({...record })
+                  setCurrentRow({ ...record });
                   handleVisible(true);
                 }}
               >
                 编辑
-              </a>
+              </a>,
             ],
           },
           {
             title: '用户名称',
             dataIndex: 'searchKey',
             valueType: 'text',
-            hideInTable: true
+            hideInTable: true,
           },
           {
             title: '用户名称',
@@ -68,8 +68,12 @@ const TableList = () => {
             title: '头像',
             search: false,
             dataIndex: 'avatar',
-            render: (dom, entity) => entity.avatar && entity?.avatar?.startsWith('http') ? (<Image src={entity.avatar
-} width={20} height={20} />) : '-'
+            render: (dom, entity) =>
+              entity.avatar && entity?.avatar?.startsWith('http') ? (
+                <Image src={entity.avatar} width={20} height={20} />
+              ) : (
+                '-'
+              ),
           },
           {
             title: '性别',
@@ -108,15 +112,15 @@ const TableList = () => {
           },
           {
             title: '创建时间',
-            dataIndex: 'createTime',
+            dataIndex: 'creationDate',
             search: false,
-            render: (dom, entity) => entity.createTime ? dayjs(entity.createTime).format('YYYY-MM-DD HH:mm:ss') : '-'
+            valueType: 'date',
           },
           {
             title: '最后登录时间',
-            dataIndex: 'loginTime',
+            dataIndex: 'lastLoginDate',
             search: false,
-            render: (dom, entity) => entity.loginTime ? dayjs(entity.loginTime).format('YYYY-MM-DD HH:mm:ss') : '-'
+            valueType: 'date',
           },
         ]}
       />

@@ -1,0 +1,80 @@
+.flex {
+  display: flex;
+}
+.flex_1 {
+  flex: 1;
+}
+.menuPage {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+}
+.pageLeft {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
+}
+.treeList {
+  :global(.ant-tree-switcher) {
+    line-height: 30px;
+  }
+  .treeTitle {
+    display: flex;
+    line-height: 30px;
+  }
+  .operation {
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+  }
+  .iconBtn {
+    margin-left: 20px;
+    cursor: pointer;
+  }
+}
+.iconBtn {
+  cursor: pointer;
+}
+
+.pageContainer {
+  :global(.ant-page-header) {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  :global(.ant-breadcrumb) {
+    width: 100%;
+  }
+  :global(.ant-page-header-heading) {
+    width: 50%;
+  }
+  :global(.ant-page-header-content) {
+    width: 50%;
+    margin-top: 8px;
+    padding-top: 4px;
+    text-align: right;
+  }
+  :global(.ant-pro-page-container-row) {
+    display: block;
+  }
+}
+
+.pageRight {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  height: 100%;
+  .pageBorder {
+    width: 0.5px;
+    height: 100%;
+    background-color: #ddd;
+  }
+  .form {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+}

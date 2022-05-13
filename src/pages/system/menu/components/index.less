@@ -1,0 +1,53 @@
+.flex {
+  display: flex;
+}
+.flex_1 {
+  flex: 1;
+}
+.menuPage {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+}
+.pageLeft {
+  display: block;
+  width: 500px;
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
+}
+.treeList {
+  :global(.ant-tree-switcher) {
+    line-height: 30px;
+  }
+  .treeTitle {
+    display: flex;
+    line-height: 30px;
+  }
+  .operation {
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+  }
+  .iconBtn {
+    margin-left: 20px;
+  }
+}
+
+.pageRight {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  height: 100%;
+  .pageBorder {
+    width: 0.5px;
+    height: 100%;
+    background-color: #ddd;
+  }
+  .form {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+}
