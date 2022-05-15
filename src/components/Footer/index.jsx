@@ -14,7 +14,7 @@ export default () => {
       links={[
         {
           key: 'github',
-          title: <GithubOutlined />,
+          title: <img src="/logo.png" width={20} />, //<GithubOutlined />,
           href: 'https://github.com/ant-design/ant-design-pro',
           blankTarget: true,
         },

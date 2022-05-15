@@ -100,7 +100,7 @@ export default defineConfig({
         {
           path: '/crm/customer',
           name: 'list',
-          component: './system/user',
+          component: './customer/list',
         },
         {
           path: '/crm',

@@ -82,6 +82,10 @@ export const layout = ({ initialState }) => {
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
+      const isLogin = localStorage.getItem('login');
+      if (!isLogin && location.pathname !== loginPath) {
+        history.push(loginPath);
+      }
       // if (initialState?.currentUser?.name === 'wxw' && location.pathname === '/system/role') {
       //   history.push('/user/403');
       // }
