@@ -16,11 +16,11 @@ import styles from './index.less';
 
 const validatorPhone = (rule, value, callback) => {
   if (!value[0]) {
-    callback('Please input your area code!');
+    callback('请输入区号');
   }
 
   if (!value[1]) {
-    callback('Please input your phone number!');
+    callback('请输入电话号');
   }
 
   callback();
@@ -48,15 +48,15 @@ const columns = [
     title: '就读时间',
     key: 'showTime',
     valueType: 'date',
-    dataIndex: 'title',
+    dataIndex: 'attendSchoolStartDate',
   },
   {
     title: '就读学校/机构',
-    dataIndex: 'title',
+    dataIndex: 'mechanism',
   },
   {
     title: '就读时长（年）',
-    dataIndex: 'title',
+    dataIndex: 'studyYear',
     with: 200,
   },
   {
@@ -83,7 +83,8 @@ const BaseView = () => {
     return '';
   };
 
-  const handleFinish = async () => {
+  const handleFinish = async (v) => {
+    console.log(v);
     message.success('更新基本信息成功');
   };
 
@@ -120,38 +121,38 @@ const BaseView = () => {
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入姓名',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="gender" // 0 男 1女
                 label="性别"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请选择性别',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="birthDate"
                 label="出生日期"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入出生日期',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="height"
                 label="身高"
                 rules={[
                   {
@@ -163,132 +164,138 @@ const BaseView = () => {
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="weight"
                 label="体重"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入体重',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
-                label="客户状态"
+                name="customerStatus"
+                label="客户状态" // : 1 观摩, 2 测评, 3 体验, 4 实习1, 5 实习2, 6 就业, 7 结课
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请选择客户状态',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
-                label="评估等级"
+                name="evaluationLevel"
+                label="评估等级" // :L1-工作体验,L2-工作体验,L3-工作体验,L4-工作体验,L5-实习生,L6-员工
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请选择评估等级',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="clinicalDiagnosis"
                 label="临床诊断"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入临床诊断',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="serviceTeacher"
                 label="服务老师"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入服务老师',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="assessmentTeacher"
                 label="评估督导"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入评估督导',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="customerManager"
                 label="客户经理"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入客户经理',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
-                label="招生来源"
+                name="studentSource"
+                label="招生来源" // 家长转介，机构转介，直访到家，美团大众
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请选择招生来源',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="recommend"
                 label="推荐人"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的昵称!',
-                  },
-                ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="isLiabilityInsurance"
                 label="雇主责任险"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入雇主责任险',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="totalClassHours"
+                label="总课时"
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入总课时',
+                  },
+                ]}
+              />
+              <ProFormText
+                width="md"
+                colProps={{ md: 12, xl: 8 }}
+                name="availableClassHours"
                 label="剩余课时"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入剩余课时',
                   },
                 ]}
               />
@@ -298,23 +305,23 @@ const BaseView = () => {
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="linkName"
                 label="联系人"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入联系人姓名',
                   },
                 ]}
               />
               <ProFormFieldSet
-                name="phone"
+                name="lineFixed"
                 colProps={{ md: 12, xl: 12 }}
                 label="固定电话"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的联系电话!',
+                    message: '请输入固定电话',
                   },
                   {
                     validator: validatorPhone,
@@ -327,7 +334,7 @@ const BaseView = () => {
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="linePhone"
                 label="手机号"
                 rules={[
                   {
@@ -336,51 +343,40 @@ const BaseView = () => {
                   },
                 ]}
               />
+              <ProFormText width="md" colProps={{ md: 12, xl: 8 }} name="weChat" label="微信号" />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
-                label="微信号"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的昵称!',
-                  },
-                ]}
-              />
-              <ProFormText
-                width="md"
-                colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="guardianName"
                 label="监护人"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入监护人姓名',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="guardianRelation"
                 label="监护人关系"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入学生与监护人关系',
                   },
                 ]}
               />
               <ProFormText
                 width="md"
                 colProps={{ md: 12, xl: 8 }}
-                name="name"
+                name="guardianPhone"
                 label="监护人手机号"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入监护人手机号',
                   },
                 ]}
               />
@@ -406,13 +402,13 @@ const BaseView = () => {
               <ProForm.Group title="" size={24}>
                 <h3 className={styles.title}>教育情况</h3>
               </ProForm.Group>
-              <ProForm.Item label="" name="dataSource" trigger="onValuesChange">
+              <ProForm.Item label="" name="educationBoList" trigger="onValuesChange">
                 <EditableProTable
                   rowKey="id"
                   toolBarRender={false}
                   columns={columns}
                   recordCreatorProps={{
-                    newRecordType: 'dataSource',
+                    newRecordType: 'educationBoList',
                     position: 'top',
                     record: () => ({
                       id: Date.now(),
@@ -443,7 +439,7 @@ const BaseView = () => {
               <ProForm.Group title="" size={24}>
                 <h3 className={styles.title}>备注信息</h3>
               </ProForm.Group>
-              <ProFormTextArea name="profile" label="" placeholder="说明信息" />
+              <ProFormTextArea name="remark" label="" placeholder="说明信息" />
               {/* <ProFormSelect
                 width="sm"
                 name="country"
