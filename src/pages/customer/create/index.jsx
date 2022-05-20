@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { history, useLocation } from 'umi'
+import { history, useLocation } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Input, Upload, message } from 'antd';
@@ -9,14 +9,23 @@ import ProForm, {
   ProFormText,
   ProFormRadio,
   ProFormTextArea,
+  ProFormDatePicker,
   ProFormUploadButton,
 } from '@ant-design/pro-form';
 import { EditableProTable } from '@ant-design/pro-table';
 import { useRequest } from 'umi';
 import { queryCurrent } from '@/pages/account/settings/service';
-import { createCustomer, getCustomerById } from "../service";
-import { genderList, evaluationLevelList, studentSourceList, customerStatusList, guardianRelationList, servicePlaceList } from '@/utils/config'
+import { createCustomer, getCustomerById } from '../service';
+import {
+  genderList,
+  evaluationLevelList,
+  studentSourceList,
+  customerStatusList,
+  guardianRelationList,
+  servicePlaceList,
+} from '@/utils/config';
 import styles from './index.less';
+import dayjs from 'dayjs';
 
 const validatorAddress = (rule, value, callback) => {
   if (value.length !== 4) {
@@ -25,7 +34,6 @@ const validatorAddress = (rule, value, callback) => {
 
   callback();
 };
-
 
 const columns = [
   {
@@ -50,38 +58,43 @@ const columns = [
 
 const BaseView = () => {
   const formRef = useRef();
-  const location = useLocation()
+  const location = useLocation();
   const { data: currentCustomer, loading } = useRequest(() => {
-    const { userId } = location.query
+    const { userId } = location.query;
     if (userId) {
       return getCustomerById({ id: userId });
     } else {
-      return Promise.resolve({})
+      return Promise.resolve({});
     }
   });
   const [editableKeys, setEditableRowKeys] = useState([5]);
   const [avatar, setAvatar] = useState('');
   const changeLevel = (v) => {
-    const keyMap  = {
+    const keyMap = {
       L1: '否',
       L2: '否',
       L3: '否',
       L4: '否',
       L5: '是',
       L6: '是',
-    }
-    const s = keyMap[v] || ''
+    };
+    const s = keyMap[v] || '';
     formRef.current.setFieldsValue({
-      isLiabilityInsurance: s
-    })
-  }
+      isLiabilityInsurance: s,
+    });
+  };
   const avatarChange = (info) => {
     if (info.file.status === 'done') {
-      const { downloadLocation } = info.file.response.data
-      setAvatar(downloadLocation)
+      const { downloadLocation } = info.file.response.data;
+      setAvatar(downloadLocation);
     }
-  }
+  };
   const handleFinish = async (v) => {
+    if (v.educationBoList) {
+      v.educationBoList.forEach((item) => {
+        item.attendSchoolStartDate = new Date(item.attendSchoolStartDate).getTime();
+      });
+    }
     const sendData = {
       userId: '1',
       ...v,
@@ -90,13 +103,16 @@ const BaseView = () => {
       baseInfoBo: {
         ...v.baseInfoBo,
         name: v.name,
-        questionnaireFile: v.questionnaireFile && v.questionnaireFile[0] ? v.questionnaireFile[0].response.data : null
-      }
-    }
-    const { status } = await createCustomer(sendData)
+        questionnaireFile:
+          v.questionnaireFile && v.questionnaireFile[0]
+            ? v.questionnaireFile[0].response.data
+            : null,
+      },
+    };
+    const { status } = await createCustomer(sendData);
     if (status === 0) {
       message.success('成功！');
-      history.goBack()
+      history.goBack();
     }
   };
 
@@ -110,11 +126,9 @@ const BaseView = () => {
                 formRef={formRef}
                 layout="horizontal"
                 grid={true}
-                rowProps={
-                  {
-                    gutter: 26
-                  }
-                }
+                rowProps={{
+                  gutter: 26,
+                }}
                 onFinish={handleFinish}
                 initialValues={{ ...currentCustomer }} // phone: currentCustomer?.phone.split('-')
               >
@@ -125,7 +139,7 @@ const BaseView = () => {
                   width="md"
                   required
                   colProps={{ md: 12, xl: 8 }}
-                  name='name'
+                  name="name"
                   label="姓名"
                   rules={[
                     {
@@ -146,12 +160,13 @@ const BaseView = () => {
                   label="性别"
                   options={genderList}
                 />
-                <ProFormText
+                <ProFormDatePicker
                   width="md"
                   required
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'birthDate']}
-                  placeholder='年-月-日'
+                  transform={(v) => new Date(v).getTime()}
+                  placeholder="年-月-日"
                   label="出生日期"
                   rules={[
                     {
@@ -165,7 +180,7 @@ const BaseView = () => {
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'height']}
                   required
-                  placeholder='单位：厘米（cm）'
+                  placeholder="单位：厘米（cm）"
                   label="身高"
                   rules={[
                     {
@@ -179,7 +194,7 @@ const BaseView = () => {
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'weight']}
                   required
-                  placeholder='单位：千克（kg）'
+                  placeholder="单位：千克（kg）"
                   label="体重"
                   rules={[
                     {
@@ -377,13 +392,39 @@ const BaseView = () => {
                     },
                   ]}
                 />
+                <ProFormText
+                  width="md"
+                  colProps={{ md: 12, xl: 8 }}
+                  name={['familyInfoBo', 'familyMemberName']}
+                  label="家庭成员1姓名"
+                />
+                <ProFormSelect
+                  width="md"
+                  colProps={{ md: 12, xl: 8 }}
+                  name={['familyInfoBo', 'familyMemberAge']}
+                  label="家庭成员1年龄"
+                  options={guardianRelationList}
+                />
+                <ProFormSelect
+                  width="md"
+                  colProps={{ md: 12, xl: 8 }}
+                  name={['familyInfoBo', 'familyMemberRelation']}
+                  label="家庭成员1关系"
+                  placeholder="家庭成员1与监护人关系"
+                  options={guardianRelationList}
+                />
                 <ProFormFieldSet
                   name="{['familyInfoBo', 'address1']}"
                   colProps={{ span: 24 }}
                   label="联系地址"
                   required
                   type="group"
-                  transform={(value) => ({ linkProvinceName: value[0], linkCityName: value[1], linkCountyName: value[2], linkAddrName: value[3]})}
+                  transform={(value) => ({
+                    linkProvinceName: value[0],
+                    linkCityName: value[1],
+                    linkCountyName: value[2],
+                    linkAddrName: value[3],
+                  })}
                   rules={[
                     {
                       required: true,
@@ -394,9 +435,9 @@ const BaseView = () => {
                     },
                   ]}
                 >
-                  <Input className={styles.phone_number} suffix="省"/>
-                  <Input className={styles.phone_number} suffix="市"/>
-                  <Input className={styles.phone_number} suffix="区"/>
+                  <Input className={styles.phone_number} suffix="省" />
+                  <Input className={styles.phone_number} suffix="市" />
+                  <Input className={styles.phone_number} suffix="区" />
                   <Input className={styles.phone_number} />
                 </ProFormFieldSet>
                 <ProForm.Group title="" size={24}>
@@ -414,7 +455,7 @@ const BaseView = () => {
                         id: Date.now(),
                         attendSchoolStartDate: null,
                         studyYear: null,
-                        mechanism: null
+                        mechanism: null,
                       }),
                     }}
                     editable={{
@@ -446,7 +487,7 @@ const BaseView = () => {
                 <ProForm.Group title="" size={24}>
                   <h3 className={styles.title}>备注信息</h3>
                 </ProForm.Group>
-                <ProFormTextArea name="remark" label="" placeholder="说明信息" />
+                <ProFormTextArea name={['baseInfoBo', 'remark']} label="" placeholder="说明信息" />
               </ProForm>
             </div>
             <div className={styles.right}>
@@ -458,7 +499,8 @@ const BaseView = () => {
                 accept="image/*"
                 action="/api/attachment/upload"
                 onChange={avatarChange}
-                showUploadList={false}>
+                showUploadList={false}
+              >
                 <div className={styles.button_view}>
                   <Button>
                     <UploadOutlined />
