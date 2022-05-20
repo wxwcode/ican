@@ -18,8 +18,17 @@ export async function getCustomerList(data) {
     };
   });
 }
-export async function addUser(data) {
-  return request(`/api/manager/user/createUser`, {
+export async function getCustomerById(params) {
+  return request(`/api/student/detail`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params,
+  });
+}
+export async function createCustomer(data) {
+  return request(`/api/student/save`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

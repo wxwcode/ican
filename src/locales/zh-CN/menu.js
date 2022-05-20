@@ -20,6 +20,8 @@ export default {
   'menu.system.menu': '菜单管理',
   'menu.customer': '客户管理',
   'menu.customer.list': '客户信息',
+  'menu.customer.create': '创建客户',
+  'menu.customer.detail': '客户信息',
   'menu.customer.report': '评估报告',
   'menu.customer.summary': '周/月小结',
   'menu.course': '课程管理',

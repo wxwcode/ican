@@ -112,6 +112,11 @@ export default defineConfig({
           component: './customer/create',
         },
         {
+          path: '/crm/detail',
+          name: 'detail',
+          component: './customer/detail',
+        },
+        {
           name: 'report',
           icon: 'smile',
           path: '/crm/report',

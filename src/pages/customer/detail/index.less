@@ -1,0 +1,32 @@
+@import '~antd/es/style/themes/default.less';
+
+.title {
+  margin-bottom: 16px;
+  color: @heading-color;
+  font-weight: 500;
+  font-size: 16px;
+}
+.info {
+  display: flex;
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin-right: 20px;
+    border: 1px solid #eee;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    .sex {
+      position: absolute;
+      font-weight: 700;
+      font-size: 22px;
+      top: -10px;
+      right: 0px;
+    }
+  }
+  .contentInfo {
+    flex: 1
+  }
+}

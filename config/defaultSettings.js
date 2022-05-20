@@ -8,10 +8,10 @@ const Settings = {
   fixSiderbar: true,
   colorWeak: false,
   pwa: false,
-  title: 'I Can客户电子管理系统',
-  logo: '/logo.png',
-  // title: 'Ant Design Pro',
-  // logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  // title: 'I Can客户电子管理系统',
+  // logo: '/logo.png',
+  title: 'Ant Design Pro',
+  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
 };
 export default Settings;
