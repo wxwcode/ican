@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { history, useLocation } from 'umi'
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Descriptions, Divider, Table } from 'antd';
-import { ManOutlined, WomanOutlined } from '@ant-design/icons';
+import { ManOutlined, WomanOutlined, FileWordOutlined } from '@ant-design/icons';
 import { useRequest } from 'umi';
 import { createCustomer, getCustomerById } from "../service";
 import { genderList, evaluationLevelList, studentSourceList, customerStatusList, guardianRelationList, servicePlaceList } from '@/utils/config'
@@ -122,14 +122,32 @@ const BaseView = () => {
               dataSource={customerInfo?.educationBoList || []}
               columns={columns}
             />
-            <div className={styles.title}>家庭与生活调查表</div>
-            <Table
-              bordered
-              rowKey='id'
-              pagination={false}
-              dataSource={customerInfo?.educationBoList || []}
-              columns={columns}
+            <Divider
+              style={{
+                marginBottom: 32,
+              }}
             />
+            <div className={styles.title}>家庭与生活调查表</div>
+            <Card
+              hoverable
+              style={{ width: 240 }}
+              cover={<FileWordOutlined style={{textAlign: 'center', fontSize: '56px', margin: '30px 0', color: 'blue'}} />}
+            >
+              <Meta title="家庭与生活调查表.docx" description="www.instagram.com" />
+            </Card>
+            <Divider
+              style={{
+                marginBottom: 32,
+              }}
+            />
+            <Descriptions
+              title="备注"
+              style={{
+                marginBottom: 32,
+              }}
+            >
+              <Descriptions.Item label="">备注备注备注备注备注备注备注备注备注备注备注备注备注备注备注</Descriptions.Item>
+            </Descriptions>
           </Card>
       }
     </PageContainer>
