@@ -14,8 +14,7 @@ import ProForm, {
 } from '@ant-design/pro-form';
 import { EditableProTable } from '@ant-design/pro-table';
 import { useRequest } from 'umi';
-import { queryCurrent } from '@/pages/account/settings/service';
-import { createCustomer, getCustomerById } from '../service';
+import { createCustomer, getCustomerById, updateCustomer } from '../service';
 import {
   genderList,
   evaluationLevelList,
@@ -67,6 +66,21 @@ const BaseView = () => {
       return Promise.resolve({});
     }
   });
+  const initInfo = () => {
+    if (currentCustomer && currentCustomer.familyInfoBo) {
+      const { linkProvinceName, linkCityName, linkCountyName, linkAddrName } =
+        currentCustomer.familyInfoBo;
+      if (linkProvinceName && linkCityName && linkCountyName) {
+        currentCustomer.familyInfoBo.address = [
+          linkProvinceName,
+          linkCityName,
+          linkCountyName,
+          linkAddrName,
+        ];
+      }
+    }
+    return currentCustomer;
+  };
   const [editableKeys, setEditableRowKeys] = useState([5]);
   const [avatar, setAvatar] = useState('');
   const changeLevel = (v) => {
@@ -80,7 +94,10 @@ const BaseView = () => {
     };
     const s = keyMap[v] || '';
     formRef.current.setFieldsValue({
-      isLiabilityInsurance: s,
+      // isLiabilityInsurance: s,
+      baseInfoBo: {
+        isLiabilityInsurance: s,
+      },
     });
   };
   const avatarChange = (info) => {
@@ -95,6 +112,7 @@ const BaseView = () => {
         item.attendSchoolStartDate = new Date(item.attendSchoolStartDate).getTime();
       });
     }
+    const { linkProvinceName, linkCityName, linkCountyName, linkAddrName } = v;
     const sendData = {
       userId: '1',
       ...v,
@@ -103,13 +121,25 @@ const BaseView = () => {
       baseInfoBo: {
         ...v.baseInfoBo,
         name: v.name,
-        questionnaireFile:
-          v.questionnaireFile && v.questionnaireFile[0]
-            ? v.questionnaireFile[0].response.data
-            : null,
+      },
+      familyInfoBo: {
+        ...v.familyInfoBo,
+        linkProvinceName,
+        linkCityName,
+        linkCountyName,
+        linkAddrName,
       },
     };
-    const { status } = await createCustomer(sendData);
+    if (v.questionnaireFile && v.questionnaireFile[0]) {
+      sendData.baseInfoBo.questionnaireFile = v.questionnaireFile[0].response.data;
+    }
+    const { userId } = location.query;
+    if (userId) {
+      sendData.studentId = userId;
+      sendData.baseInfoBo.studentId = userId;
+    }
+    const requestApi = userId ? updateCustomer : createCustomer;
+    const { status } = await requestApi(sendData);
     if (status === 0) {
       message.success('成功！');
       history.goBack();
@@ -130,7 +160,7 @@ const BaseView = () => {
                   gutter: 26,
                 }}
                 onFinish={handleFinish}
-                initialValues={{ ...currentCustomer }} // phone: currentCustomer?.phone.split('-')
+                initialValues={{ ...initInfo() }} // phone: currentCustomer?.phone.split('-')
               >
                 <ProForm.Group title="" size={24}>
                   <h3 className={styles.title}>基本信息</h3>
@@ -164,8 +194,8 @@ const BaseView = () => {
                   width="md"
                   required
                   colProps={{ md: 12, xl: 8 }}
-                  name={['baseInfoBo', 'birthDate']}
-                  transform={(v) => new Date(v).getTime()}
+                  name="birthDate"
+                  transform={(v) => ({ birthDate: new Date(v).getTime() })}
                   placeholder="年-月-日"
                   label="出生日期"
                   rules={[
@@ -301,7 +331,7 @@ const BaseView = () => {
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   disabled
-                  name="isLiabilityInsurance"
+                  name={['baseInfoBo', 'isLiabilityInsurance']}
                   label="雇主责任险"
                 />
                 <ProFormText
@@ -351,7 +381,12 @@ const BaseView = () => {
                     },
                   ]}
                 />
-                <ProFormText width="md" colProps={{ md: 12, xl: 8 }} name="weChat" label="微信号" />
+                <ProFormText
+                  width="md"
+                  colProps={{ md: 12, xl: 8 }}
+                  name={['familyInfoBo', 'weChat']}
+                  label="微信号"
+                />
                 <ProFormText
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
@@ -398,12 +433,11 @@ const BaseView = () => {
                   name={['familyInfoBo', 'familyMemberName']}
                   label="家庭成员1姓名"
                 />
-                <ProFormSelect
+                <ProFormText
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name={['familyInfoBo', 'familyMemberAge']}
                   label="家庭成员1年龄"
-                  options={guardianRelationList}
                 />
                 <ProFormSelect
                   width="md"
@@ -414,7 +448,7 @@ const BaseView = () => {
                   options={guardianRelationList}
                 />
                 <ProFormFieldSet
-                  name="{['familyInfoBo', 'address1']}"
+                  name={['familyInfoBo', 'address']}
                   colProps={{ span: 24 }}
                   label="联系地址"
                   required

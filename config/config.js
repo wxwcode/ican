@@ -119,8 +119,14 @@ export default defineConfig({
         {
           name: 'report',
           icon: 'smile',
-          path: '/crm/report',
-          component: './system/user',
+          path: '/crm/report/list',
+          component: './customer/report/list',
+        },
+        {
+          name: 'reportDetail',
+          icon: 'smile',
+          path: '/crm/report/:id',
+          component: './customer/report/detail',
         },
         {
           name: 'summary',

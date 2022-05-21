@@ -23,6 +23,7 @@ export default {
   'menu.customer.create': '创建客户',
   'menu.customer.detail': '客户信息',
   'menu.customer.report': '评估报告',
+  'menu.customer.reportDetail': '评估详情',
   'menu.customer.summary': '周/月小结',
   'menu.course': '课程管理',
   'menu.course.my-customer': '我的学员',

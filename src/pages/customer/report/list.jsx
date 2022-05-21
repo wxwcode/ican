@@ -3,7 +3,7 @@ import { Button, Image, Tag } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { getCustomerList } from './service';
+import { getCustomerList } from '../service';
 import { servicePlaceMap, customerStatusMap } from '@/utils/config';
 import { history } from 'umi';
 
@@ -43,6 +43,9 @@ const colorMap = {
     value: 7,
     color: '#2196f3',
   },
+};
+const goPath = (row) => {
+  history.push(`/crm/report/${row.id}`);
 };
 const TableList = () => {
   const actionRef = useRef();
@@ -142,44 +145,11 @@ const TableList = () => {
             title: '报告',
             dataIndex: 'file',
             search: false,
-            render: (file) => (
-              <a href={file?.url} target="_blank" rel="noreferrer">
-                <Button type="primary">查看报告</Button>
-              </a>
+            render: (file, row) => (
+              <Button type="primary" onClick={() => goPath(row)}>
+                查看报告
+              </Button>
             ),
-          },
-          {
-            title: '操作',
-            width: 160,
-            valueType: 'option',
-            render: (_, record) => [
-              <a
-                key="config2"
-                onClick={() => {
-                  history.push({
-                    pathname: '/crm/detail',
-                    query: {
-                      userId: record.id,
-                    },
-                  });
-                }}
-              >
-                详情
-              </a>,
-              <a
-                key="config"
-                onClick={() => {
-                  history.push({
-                    pathname: '/crm/create',
-                    query: {
-                      userId: record.id,
-                    },
-                  });
-                }}
-              >
-                编辑
-              </a>,
-            ],
           },
         ]}
       />

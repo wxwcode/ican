@@ -1,45 +1,45 @@
 export const genderList = [
   {
     label: '男',
-    value: 0
+    value: '0',
   },
   {
     label: '女',
-    value: 1
+    value: '1',
   },
-]
+];
 export const evaluationLevelList = [
   {
     label: '工作体验（L1）',
     desc: '工作体验',
-    value: 'L1'
+    value: 'L1',
   },
   {
     label: '工作体验（L2）',
     desc: '工作体验',
-    value: 'L2'
+    value: 'L2',
   },
   {
     label: '工作体验（L3）',
     desc: '工作体验',
-    value: 'L3'
+    value: 'L3',
   },
   {
     label: '工作体验（L4）',
     desc: '工作体验',
-    value: 'L4'
+    value: 'L4',
   },
   {
     label: '实习生（L5）',
     desc: '实习生',
-    value: 'L5'
+    value: 'L5',
   },
   {
     label: '员工（L6）',
     desc: '员工',
-    value: 'L6'
+    value: 'L6',
   },
-]
+];
 export const studentSourceList = [
   {
     label: '家长转介',
@@ -47,7 +47,7 @@ export const studentSourceList = [
   },
   {
     label: '机构转介',
-    value: '机构转介'
+    value: '机构转介',
   },
   {
     label: '直访到家',
@@ -57,7 +57,7 @@ export const studentSourceList = [
     label: '美团大众',
     value: '美团大众',
   },
-]
+];
 export const customerStatusList = [
   {
     label: '观摩',
@@ -65,7 +65,7 @@ export const customerStatusList = [
   },
   {
     label: '测评',
-    value: 2
+    value: 2,
   },
   {
     label: '体验',
@@ -87,7 +87,7 @@ export const customerStatusList = [
     label: '结课',
     value: 7,
   },
-]
+];
 export const guardianRelationList = [
   {
     label: '父亲',
@@ -95,7 +95,7 @@ export const guardianRelationList = [
   },
   {
     label: '母亲',
-    value: '母亲'
+    value: '母亲',
   },
   {
     label: '兄弟姐妹',
@@ -109,10 +109,24 @@ export const guardianRelationList = [
     label: '其他',
     value: '其他',
   },
-]
+];
 export const servicePlaceList = [
   {
     label: 'Ican深圳',
     value: 'Ican深圳',
   },
-]
+];
+export const servicePlaceMap = () => {
+  const map = {};
+  servicePlaceList.forEach((item) => {
+    map[item.value] = item.label;
+  });
+  return map;
+};
+export const customerStatusMap = () => {
+  const map = {};
+  customerStatusList.forEach((item) => {
+    map[item.value] = item.label;
+  });
+  return map;
+};

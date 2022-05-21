@@ -36,8 +36,8 @@ export async function createCustomer(data) {
     data,
   });
 }
-export async function updateUser(data) {
-  return request(`/api/manager/user/updateUser`, {
+export async function updateCustomer(data) {
+  return request(`/api/student/update`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

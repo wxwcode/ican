@@ -1,18 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { history, useLocation } from 'umi';
+import React from 'react';
+import { useLocation } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Descriptions, Divider, Table } from 'antd';
 import { ManOutlined, WomanOutlined, FileWordOutlined } from '@ant-design/icons';
 import { useRequest } from 'umi';
-import { createCustomer, getCustomerById } from '../service';
-import {
-  genderList,
-  evaluationLevelList,
-  studentSourceList,
-  customerStatusList,
-  guardianRelationList,
-  servicePlaceList,
-} from '@/utils/config';
+import { getCustomerById } from '../service';
+import { evaluationLevelList } from '@/utils/config';
 import styles from './index.less';
 import dayjs from 'dayjs';
 
@@ -116,7 +109,7 @@ const BaseView = () => {
               {customerInfo?.baseInfoBo?.petName || ''}
             </Descriptions.Item>
             <Descriptions.Item label="性别">
-              {customerInfo?.baseInfoBo?.gender === '1' ? '男' : '女'}
+              {customerInfo?.baseInfoBo?.gender === '1' ? '女' : '男'}
             </Descriptions.Item>
             <Descriptions.Item label="身高">
               {customerInfo?.baseInfoBo?.height || ''}cm
