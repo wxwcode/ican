@@ -1,34 +1,65 @@
-import React from 'react';
-import { history, useParams } from 'umi';
-import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Descriptions, Divider, Button } from 'antd';
+import { customerStatusMap } from '@/utils/config';
 import { ManOutlined, WomanOutlined } from '@ant-design/icons';
-import { useRequest } from 'umi';
-import { getCustomerById } from '../service';
+import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import styles from '../detail/index.less';
+import { Button, Card, Descriptions, Divider } from 'antd';
 import dayjs from 'dayjs';
+import React, { useRef, useState } from 'react';
+import { useParams, useRequest } from 'umi';
+import AddForm from '../components/AddReport';
+import styles from '../detail/index.less';
+import { getCustomerById, queryEstimateList } from '../service';
 
 const columns = [
   {
-    title: '就读时间',
+    title: '序号',
+    valueType: 'index',
+  },
+  {
+    title: '评估时间',
     valueType: 'date',
-    dataIndex: 'attendSchoolStartDate',
+    dataIndex: 'estimateDate',
     render: (d) => (d ? dayjs(d).format('YYYY-MM-DD') : ''),
   },
   {
-    title: '就读学校/机构',
-    dataIndex: 'mechanism',
+    title: '评估形式',
+    dataIndex: 'estimateSource',
   },
   {
-    title: '就读时长（年）',
-    dataIndex: 'studyYear',
+    title: '评估类型',
+    dataIndex: 'estimateType',
     with: 200,
+  },
+  {
+    title: '服务中心',
+    dataIndex: 'servicePlace',
+  },
+  {
+    title: '评估督导',
+    dataIndex: 'estimateSupervisor',
+  },
+  {
+    title: '报告',
+    dataIndex: 'file',
+    search: false,
+    render: (file, row) => (
+      <Button
+        type="primary"
+        onClick={() => {
+          //TODO
+        }}
+      >
+        查看报告
+      </Button>
+    ),
   },
 ];
 
 const BaseView = () => {
+  const actionRef = useRef();
   const { id } = useParams();
+  /** 新建窗口的弹窗 */
+  const [createVisible, handleVisible] = useState(false);
   const { data: customerInfo, loading } = useRequest(() => {
     if (id) {
       return getCustomerById({ id });
@@ -60,7 +91,7 @@ const BaseView = () => {
                 {customerInfo?.baseInfoBo?.studentId || ''}
               </Descriptions.Item>
               <Descriptions.Item label="客户状态">
-                {customerInfo.customerStatus || ''}
+                {customerStatusMap()[customerInfo.customerStatus] || ''}
               </Descriptions.Item>
               <Descriptions.Item label="客户经理">
                 {customerInfo?.customerManager || ''}
@@ -82,20 +113,35 @@ const BaseView = () => {
             }}
           />
           <ProTable
+            actionRef={actionRef}
             bordered
             search={false}
-            rowKey="id"
-            pagination={false}
-            dataSource={customerInfo?.educationBoList || []}
+            rowKey="estimateId"
+            params={{ studentId: id }}
+            request={queryEstimateList}
             columns={columns}
             toolBarRender={() => [
-              <Button type="primary" key="primary">
+              <Button
+                type="primary"
+                key="primary"
+                onClick={() => {
+                  handleVisible(true);
+                }}
+              >
                 创建报告
               </Button>,
             ]}
           />
         </Card>
       )}
+      <AddForm
+        visible={createVisible}
+        studentId={id}
+        handleVisible={handleVisible}
+        reload={() => {
+          actionRef?.current?.reload();
+        }}
+      />
     </PageContainer>
   );
 };
