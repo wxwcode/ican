@@ -1,11 +1,10 @@
-import { customerStatusMap, servicePlaceMap } from '@/utils/config';
-import { PlusOutlined } from '@ant-design/icons';
+import { getPayColor, payStatusMap, servicePlaceMap } from '@/utils/config';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { Button, Image, Tag } from 'antd';
 import React, { useRef } from 'react';
 import { history } from 'umi';
-import { getCustomerList } from '../service';
+import { getRenewalList } from './service';
 
 const colorMap = {
   1: {
@@ -44,9 +43,6 @@ const colorMap = {
     color: '#2196f3',
   },
 };
-const goPath = (row) => {
-  history.push(`/crm/reportdetail/${row.id}`);
-};
 const TableList = () => {
   const actionRef = useRef();
   /** 国际化配置 */
@@ -57,18 +53,18 @@ const TableList = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
-        toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              history.push('/crm/create');
-            }}
-          >
-            <PlusOutlined /> 创建客户
-          </Button>,
-        ]}
-        request={getCustomerList}
+        // toolBarRender={() => [
+        //   <Button
+        //     type="primary"
+        //     key="primary"
+        //     onClick={() => {
+        //       history.push('/crm/create');
+        //     }}
+        //   >
+        //     <PlusOutlined /> 创建客户
+        //   </Button>,
+        // ]}
+        request={getRenewalList}
         columns={[
           {
             title: '头像',
@@ -107,8 +103,8 @@ const TableList = () => {
             valueType: 'date',
           },
           {
-            title: '服务老师',
-            dataIndex: 'serviceTeacher',
+            title: '客户经理',
+            dataIndex: 'customerManager',
             valueType: 'text',
           },
           {
@@ -127,29 +123,50 @@ const TableList = () => {
             valueType: 'text',
           },
           {
-            title: '客户状态',
-            dataIndex: 'customerStatus',
+            title: '续费状态',
+            dataIndex: 'payStatus',
             filters: true,
             onFilter: true,
             hideInTable: true,
             valueType: 'select',
-            valueEnum: customerStatusMap(),
+            valueEnum: payStatusMap(),
           },
           {
-            title: '客户状态',
-            dataIndex: 'customerStatus',
+            title: '续费状态',
+            dataIndex: 'renewalPayStatusDesc',
             search: false,
-            render: (key, record) => <Tag color={colorMap[key].color}>{colorMap[key].label}</Tag>,
+            render: (key, record) => <Tag color={getPayColor(record.payStatus)}>{key}</Tag>,
           },
           {
-            title: '报告',
-            dataIndex: 'file',
+            title: '剩余课时',
+            dataIndex: 'totalClassHours',
             search: false,
-            render: (file, row) => (
-              <Button type="primary" onClick={() => goPath(row)}>
-                查看报告
-              </Button>
+            render: (key, record) => (
+              <Tag color={getPayColor(record.payStatus)}>
+                {record.availableClassHours}/{record.totalClassHours}
+              </Tag>
             ),
+          },
+          {
+            title: '操作',
+            width: 160,
+            valueType: 'option',
+            render: (_, record) => [
+              <Button
+                key="config"
+                type="primary"
+                onClick={() => {
+                  history.push({
+                    pathname: '/crm/detail',
+                    query: {
+                      userId: record.id,
+                    },
+                  });
+                }}
+              >
+                查看档案
+              </Button>,
+            ],
           },
         ]}
       />

@@ -116,6 +116,30 @@ export const servicePlaceList = [
     value: 'Ican深圳',
   },
 ];
+const payStatusList = [
+  {
+    label: '正常',
+    value: 0,
+    color: '#eee',
+  },
+  {
+    label: '评估',
+    value: 1,
+    color: 'green',
+  },
+  {
+    label: '续费',
+    value: 2,
+    color: 'red',
+  },
+];
+function setMap(v) {
+  const map = {};
+  v.forEach((item) => {
+    map[item.value] = item.label;
+  });
+  return map;
+}
 export const servicePlaceMap = () => {
   const map = {};
   servicePlaceList.forEach((item) => {
@@ -129,4 +153,12 @@ export const customerStatusMap = () => {
     map[item.value] = item.label;
   });
   return map;
+};
+export const payStatusMap = () => {
+  return setMap(payStatusList);
+};
+export const getPayColor = (status) => {
+  const obj = payStatusList.find((item) => item.value === status);
+  if (obj && obj.color) return obj.color;
+  return '';
 };

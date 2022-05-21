@@ -5,7 +5,7 @@ import ProTable from '@ant-design/pro-table';
 import { Button, Image, Tag } from 'antd';
 import React, { useRef } from 'react';
 import { history } from 'umi';
-import { getCustomerList } from '../service';
+import { getCustomerList } from './service';
 
 const colorMap = {
   1: {
@@ -43,9 +43,6 @@ const colorMap = {
     value: 7,
     color: '#2196f3',
   },
-};
-const goPath = (row) => {
-  history.push(`/crm/reportdetail/${row.id}`);
 };
 const TableList = () => {
   const actionRef = useRef();
@@ -142,14 +139,25 @@ const TableList = () => {
             render: (key, record) => <Tag color={colorMap[key].color}>{colorMap[key].label}</Tag>,
           },
           {
-            title: '报告',
-            dataIndex: 'file',
-            search: false,
-            render: (file, row) => (
-              <Button type="primary" onClick={() => goPath(row)}>
-                查看报告
-              </Button>
-            ),
+            title: '操作',
+            width: 160,
+            valueType: 'option',
+            render: (_, record) => [
+              <Button
+                key="config"
+                type="primary"
+                onClick={() => {
+                  history.push({
+                    pathname: '/crm/detail',
+                    query: {
+                      userId: record.id,
+                    },
+                  });
+                }}
+              >
+                查看档案
+              </Button>,
+            ],
           },
         ]}
       />
