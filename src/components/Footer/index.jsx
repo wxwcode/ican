@@ -1,6 +1,5 @@
-import { useIntl } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-layout';
+import { useIntl } from 'umi';
 export default () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
@@ -15,13 +14,13 @@ export default () => {
         {
           key: 'github',
           title: <img src="/logo.png" width={20} />, //<GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          href: 'http://kdfcc.com',
           blankTarget: true,
         },
         {
           key: 'I Can客户电子管理系统',
           title: 'I Can客户电子管理系统',
-          href: 'https://sys.kd.com',
+          href: 'http://ican.kdfcc.com',
           blankTarget: true,
         },
       ]}

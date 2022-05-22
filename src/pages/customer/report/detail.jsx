@@ -3,7 +3,6 @@ import { ManOutlined, WomanOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { Button, Card, Descriptions, Divider } from 'antd';
-import dayjs from 'dayjs';
 import React, { useRef, useState } from 'react';
 import { useParams, useRequest } from 'umi';
 import AddForm from '../components/AddReport';
@@ -19,7 +18,6 @@ const columns = [
     title: '评估时间',
     valueType: 'date',
     dataIndex: 'estimateDate',
-    render: (d) => (d ? dayjs(d).format('YYYY-MM-DD') : ''),
   },
   {
     title: '评估形式',
@@ -47,6 +45,7 @@ const columns = [
         type="primary"
         onClick={() => {
           //TODO
+          if (row.estimateUrl) window.open(row.estimateUrl);
         }}
       >
         查看报告

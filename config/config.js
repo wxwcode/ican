@@ -80,11 +80,15 @@ export default defineConfig({
         {
           path: '/crm/create',
           name: 'create',
+          hideInMenu: true,
+          access: 'normalRouteFilter',
           component: './customer/create',
         },
         {
           path: '/crm/detail',
           name: 'detail',
+          hideInMenu: true,
+          access: 'normalRouteFilter',
           component: './customer/detail',
         },
         {
@@ -96,6 +100,7 @@ export default defineConfig({
         {
           name: 'reportDetail',
           icon: 'smile',
+          hideInMenu: true,
           path: '/crm/reportdetail/:id',
           component: './customer/report/detail',
         },

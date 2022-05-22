@@ -82,3 +82,14 @@ export async function createReport(data) {
     data,
   });
 }
+export async function readFile(attachmentId) {
+  return request(`/api/attachment/download`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: {
+      attachmentId,
+    },
+  });
+}

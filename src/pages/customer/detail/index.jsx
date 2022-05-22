@@ -1,13 +1,12 @@
-import React from 'react';
-import { useLocation } from 'umi';
+import { customerStatusMap, evaluationLevelList } from '@/utils/config';
+import { FileWordOutlined, ManOutlined, WomanOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Descriptions, Divider, Table } from 'antd';
-import { ManOutlined, WomanOutlined, FileWordOutlined } from '@ant-design/icons';
-import { useRequest } from 'umi';
-import { getCustomerById } from '../service';
-import { evaluationLevelList } from '@/utils/config';
-import styles from './index.less';
 import dayjs from 'dayjs';
+import React from 'react';
+import { useLocation, useRequest } from 'umi';
+import { getCustomerById } from '../service';
+import styles from './index.less';
 
 const { Meta } = Card;
 
@@ -78,7 +77,7 @@ const BaseView = () => {
                 {customerInfo?.baseInfoBo?.studentId || ''}
               </Descriptions.Item>
               <Descriptions.Item label="客户状态">
-                {customerInfo.customerStatus || ''}
+                {customerStatusMap()[customerInfo.customerStatus] || ''}
               </Descriptions.Item>
               <Descriptions.Item label="客户经理">
                 {customerInfo?.customerManager || ''}
