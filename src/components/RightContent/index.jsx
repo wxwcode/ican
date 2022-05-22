@@ -59,7 +59,23 @@ const GlobalHeaderRight = () => {
       </span> */}
       <NoticeIconView />
       <Avatar menu />
-      <SelectLang className={styles.action} />
+      <SelectLang
+        className={styles.action}
+        postLocalesData={() => [
+          {
+            lang: 'en-US',
+            label: 'English',
+            icon: 'us',
+            title: 'Language'
+          },
+          {
+            lang: 'zh-CN',
+            label: '简体中文',
+            icon: 'cn',
+            title: '语言'
+          }
+        ]}
+      />
     </Space>
   );
 };

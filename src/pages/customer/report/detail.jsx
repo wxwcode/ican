@@ -6,6 +6,7 @@ import { Button, Card, Descriptions, Divider } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useParams, useRequest, history } from 'umi';
 import dayjs from 'dayjs';
+import { getAge } from '@/utils/index'
 import AddForm from '../components/AddReport';
 import styles from '../detail/index.less';
 import { getCustomerById, queryEstimateList } from '../service';
@@ -91,7 +92,10 @@ const BaseView = () => {
               )}
             </div>
             <Descriptions title="" className={styles.contentInfo}>
-              <Descriptions.Item label="姓名">{customerInfo?.name || ''}</Descriptions.Item>
+              <Descriptions.Item label="姓名">
+                {customerInfo?.name || ''}
+                {customerInfo?.baseInfoBo?.petName ? `(${customerInfo?.baseInfoBo?.petName})` : ''}
+              </Descriptions.Item>
               <Descriptions.Item label="学号">
                 {customerInfo?.studentNo || ''}
               </Descriptions.Item>
@@ -103,6 +107,7 @@ const BaseView = () => {
               </Descriptions.Item>
               <Descriptions.Item label="出生日期">
                 { customerInfo?.birthDate ? dayjs(customerInfo?.birthDate).format('YYYY-MM-DD') : ''}
+                {customerInfo?.birthDate ? `（${getAge(customerInfo?.birthDate)}）` : ''}
               </Descriptions.Item>
               <Descriptions.Item label="注册时间">
                 {customerInfo?.registerDate  ? dayjs(customerInfo?.registerDate).format('YYYY-MM-DD') : ''}

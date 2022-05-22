@@ -115,6 +115,10 @@ export const servicePlaceList = [
     label: 'Ican深圳',
     value: 'Ican深圳',
   },
+  {
+    label: 'Ican广州',
+    value: 'Ican广州',
+  },
 ];
 const payStatusList = [
   {
