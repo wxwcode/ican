@@ -1,10 +1,10 @@
 import { customerStatusMap, evaluationLevelList } from '@/utils/config';
-import { FileWordOutlined, ManOutlined, WomanOutlined } from '@ant-design/icons';
+import { FileWordOutlined, ManOutlined, WomanOutlined, LeftOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Descriptions, Divider, Table } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
-import { useLocation, useRequest } from 'umi';
+import { useLocation, useRequest, history } from 'umi';
 import { getCustomerById } from '../service';
 import styles from './index.less';
 
@@ -60,6 +60,11 @@ const BaseView = () => {
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 120 }}>
+      <div className={styles.back} onClick={() => {
+        history.goBack();
+      }}>
+        <LeftOutlined />返回
+      </div>
       {loading || !customerInfo ? null : (
         <Card bordered={false}>
           <div className={styles.info}>
@@ -74,7 +79,7 @@ const BaseView = () => {
             <Descriptions title="" className={styles.contentInfo}>
               <Descriptions.Item label="姓名">{customerInfo?.name || ''}</Descriptions.Item>
               <Descriptions.Item label="学号">
-                {customerInfo?.baseInfoBo?.studentId || ''}
+                {customerInfo?.studentNo || ''}
               </Descriptions.Item>
               <Descriptions.Item label="客户状态">
                 {customerStatusMap()[customerInfo.customerStatus] || ''}
@@ -83,10 +88,10 @@ const BaseView = () => {
                 {customerInfo?.customerManager || ''}
               </Descriptions.Item>
               <Descriptions.Item label="出生日期">
-                {customerInfo?.baseInfoBo?.birthDate || ''}
+                { customerInfo?.birthDate ? dayjs(customerInfo?.birthDate).format('YYYY-MM-DD') : ''}
               </Descriptions.Item>
               <Descriptions.Item label="注册时间">
-                {customerInfo?.registerDate || ''}
+                {customerInfo?.registerDate  ? dayjs(customerInfo?.registerDate).format('YYYY-MM-DD') : ''}
               </Descriptions.Item>
               <Descriptions.Item label="服务中心">
                 {customerInfo?.servicePlace || ''}
@@ -138,8 +143,8 @@ const BaseView = () => {
               {s(customerInfo?.baseInfoBo?.evaluationLevel)}
             </Descriptions.Item>
             <Descriptions.Item label="剩余课时">
-              {customerInfo?.baseInfoBo?.availableClassHours || ''}/
-              {customerInfo?.baseInfoBo?.totalClassHours || ''}
+              {customerInfo?.availableClassHours || ''}/
+              {customerInfo?.totalClassHours || ''}
             </Descriptions.Item>
           </Descriptions>
           <Descriptions

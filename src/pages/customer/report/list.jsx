@@ -44,13 +44,13 @@ const colorMap = {
     color: '#2196f3',
   },
 };
-const goPath = (row) => {
-  history.push(`/crm/reportdetail/${row.id}`);
-};
+
 const TableList = () => {
   const actionRef = useRef();
   /** 国际化配置 */
-
+  const goPath = (row) => {
+    history.push(`/crm/reportdetail/${row.id}`);
+  };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
       <ProTable
@@ -146,7 +146,7 @@ const TableList = () => {
             dataIndex: 'file',
             search: false,
             render: (file, row) => (
-              <Button type="primary" onClick={() => goPath(row)}>
+              <Button size='small' type="primary" onClick={() => goPath(row)}>
                 查看报告
               </Button>
             ),

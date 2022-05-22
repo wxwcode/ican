@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { history, useLocation } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, LeftOutlined } from '@ant-design/icons';
 import { Button, Input, Upload, message } from 'antd';
 import ProForm, {
   ProFormFieldSet,
@@ -9,6 +9,7 @@ import ProForm, {
   ProFormText,
   ProFormRadio,
   ProFormTextArea,
+  ProFormDigit,
   ProFormDatePicker,
   ProFormUploadButton,
 } from '@ant-design/pro-form';
@@ -148,6 +149,11 @@ const BaseView = () => {
 
   return (
     <PageContainer waterMarkProps={{ gapX: 320, gapY: 320 }}>
+      <div className={styles.back} onClick={() => {
+        history.goBack();
+      }}>
+        <LeftOutlined />返回
+      </div>
       <div className={styles.baseView}>
         {loading ? null : (
           <>
@@ -334,17 +340,19 @@ const BaseView = () => {
                   name={['baseInfoBo', 'isLiabilityInsurance']}
                   label="雇主责任险"
                 />
-                <ProFormText
+                <ProFormDigit
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name="totalClassHours"
                   label="总课时"
+                  fieldProps={{ precision: 0 }}
                 />
-                <ProFormText
+                <ProFormDigit
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name="availableClassHours"
                   label="剩余课时"
+                  fieldProps={{ precision: 0 }}
                 />
                 <ProForm.Group title="" size={24}>
                   <h3 className={styles.title}>家庭情况</h3>

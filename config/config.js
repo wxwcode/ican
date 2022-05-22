@@ -108,7 +108,7 @@ export default defineConfig({
           name: 'summary',
           icon: 'smile',
           path: '/crm/summary',
-          component: './system/user',
+          component: './customer/summary/list',
         },
         {
           component: '404',

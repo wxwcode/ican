@@ -44,3 +44,12 @@ export async function updateCustomer(data) {
     data,
   });
 }
+export async function updateStudentHour(data) {
+  return request(`/api/student/updateStudentHour`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+  });
+}

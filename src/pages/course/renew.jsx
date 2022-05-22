@@ -1,8 +1,11 @@
 import { getPayColor, payStatusMap, servicePlaceMap } from '@/utils/config';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
+import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button, Image, Tag } from 'antd';
-import React, { useRef } from 'react';
+import UploadExport from './components/UploadExport'
+import EditCourse from './components/EditCourse'
+import React, { useRef, useState } from 'react';
 import { history } from 'umi';
 import { getRenewalList } from './service';
 
@@ -45,6 +48,11 @@ const colorMap = {
 };
 const TableList = () => {
   const actionRef = useRef();
+  const [ visible, handleVisible ] = useState(false)
+  const [ editVisible, handleEditVisible ] = useState(false)
+  const [ currentData, setCurrentData ] = useState(null)
+
+  
   /** 国际化配置 */
 
   return (
@@ -53,17 +61,17 @@ const TableList = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
-        // toolBarRender={() => [
-        //   <Button
-        //     type="primary"
-        //     key="primary"
-        //     onClick={() => {
-        //       history.push('/crm/create');
-        //     }}
-        //   >
-        //     <PlusOutlined /> 创建客户
-        //   </Button>,
-        // ]}
+        toolBarRender={() => [
+          <Button
+            type="primary"
+            key="primary"
+            onClick={() => {
+              handleVisible(true)
+            }}
+          >
+            <VerticalAlignBottomOutlined /> 导入更新
+          </Button>,
+        ]}
         request={getRenewalList}
         columns={[
           {
@@ -148,12 +156,11 @@ const TableList = () => {
             ),
           },
           {
-            title: '操作',
-            width: 160,
-            valueType: 'option',
-            render: (_, record) => [
+            title: '档案',
+            dataIndex: 'totalClassHours',
+            search: false,
+            render: (file, record) => (
               <Button
-                key="config"
                 type="primary"
                 onClick={() => {
                   history.push({
@@ -163,12 +170,41 @@ const TableList = () => {
                     },
                   });
                 }}
-              >
-                查看档案
-              </Button>,
+              >查看档案</Button>
+            ),
+          },
+          {
+            title: '操作',
+            width: 100,
+            valueType: 'option',
+            render: (_, record) => [
+              <a
+              key="config"
+              onClick={() => {
+                setCurrentData({...record})
+                handleEditVisible(true)
+              }}
+            > 
+              更新课时
+            </a>,
             ],
           },
         ]}
+      />
+      <UploadExport
+        visible={visible}
+        reload={() => {
+          actionRef?.current?.reload();
+        }}
+        handleVisible={handleVisible}
+      />
+      <EditCourse
+        visible={editVisible}
+        reload={() => {
+          actionRef?.current?.reload();
+        }}
+        handleVisible={handleEditVisible}
+        currentData={currentData}
       />
     </PageContainer>
   );

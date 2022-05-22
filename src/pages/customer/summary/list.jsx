@@ -3,7 +3,7 @@ import { Button, Image, Tag } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { getCustomerList } from './service';
+import { getCustomerList } from '../service';
 import { servicePlaceMap, customerStatusMap } from '@/utils/config';
 import { history } from 'umi';
 
@@ -141,45 +141,13 @@ const TableList = () => {
             render: (key, record) => <Tag color={colorMap[key].color}>{colorMap[key].label}</Tag>,
           },
           {
-            title: '报告',
+            title: '周/月小结',
+            width: 100,
             dataIndex: 'file',
             search: false,
             render: (file, row) => (
-              <Button size='small' type="primary" onClick={() => goPath(row)}>查看报告</Button>
+              <Button size='small' type="primary" onClick={() => goPath(row)}>查看小结</Button>
             ),
-          },
-          {
-            title: '操作',
-            width: 160,
-            valueType: 'option',
-            render: (_, record) => [
-              <a
-                key="config2"
-                onClick={() => {
-                  history.push({
-                    pathname: '/crm/detail',
-                    query: {
-                      userId: record.id,
-                    },
-                  });
-                }}
-              >
-                详情
-              </a>,
-              <a
-                key="config"
-                onClick={() => {
-                  history.push({
-                    pathname: '/crm/create',
-                    query: {
-                      userId: record.id,
-                    },
-                  });
-                }}
-              >
-                编辑
-              </a>,
-            ],
           },
         ]}
       />
