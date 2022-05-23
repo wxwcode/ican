@@ -1,11 +1,11 @@
+import { customerStatusMap, servicePlaceMap } from '@/utils/config';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Image, Tag } from 'antd';
-import React, { useState, useRef } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import { getCustomerList } from '../service';
-import { servicePlaceMap, customerStatusMap } from '@/utils/config';
+import { Button, Image, Tag } from 'antd';
+import React, { useRef } from 'react';
 import { history } from 'umi';
+import { getCustomerList } from '../service';
 
 const colorMap = {
   1: {
@@ -48,7 +48,7 @@ const TableList = () => {
   const actionRef = useRef();
   /** 国际化配置 */
   const goPath = (row) => {
-    history.push(`/crm/reportdetail/${row.id}`);
+    history.push(`/crm/summarydetail/${row.id}`);
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
@@ -146,7 +146,9 @@ const TableList = () => {
             dataIndex: 'file',
             search: false,
             render: (file, row) => (
-              <Button size='small' type="primary" onClick={() => goPath(row)}>查看小结</Button>
+              <Button size="small" type="primary" onClick={() => goPath(row)}>
+                查看小结
+              </Button>
             ),
           },
         ]}

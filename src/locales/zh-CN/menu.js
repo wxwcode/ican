@@ -25,6 +25,7 @@ export default {
   'menu.customer.report': '评估报告',
   'menu.customer.reportDetail': '评估详情',
   'menu.customer.summary': '周/月小结',
+  'menu.customer.summarydetail': '小结详情',
   'menu.course': '课程管理',
   'menu.course.my-customer': '我的学员',
   'menu.course.renew': '续费管理',

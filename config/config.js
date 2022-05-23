@@ -111,6 +111,12 @@ export default defineConfig({
           component: './customer/summary/list',
         },
         {
+          name: 'summarydetail',
+          icon: 'smile',
+          path: '/crm/summarydetail/:id',
+          component: './customer/summary/detail',
+        },
+        {
           component: '404',
         },
       ],
