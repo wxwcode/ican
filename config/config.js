@@ -113,6 +113,7 @@ export default defineConfig({
         {
           name: 'summarydetail',
           icon: 'smile',
+          hideInMenu: true,
           path: '/crm/summarydetail/:id',
           component: './customer/summary/detail',
         },

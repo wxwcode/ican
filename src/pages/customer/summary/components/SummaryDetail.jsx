@@ -9,7 +9,7 @@ const menuMap = ['2022', '2021', '2020', '2019'];
 
 const TableList = () => {
   const actionRef = useRef();
-  const [selectKey, setSelectKey] = useState('');
+  const [selectKey, setSelectKey] = useState('2022');
   const onChange = (key) => {
     console.log(key);
   };
