@@ -16,7 +16,7 @@ export default (props) => {
   }, [props]);
   const onFinish = async (value) => {
     const {studentNo} = props.currentData
-    if (studentNo) return false
+    if (!studentNo) return false
     const success = await updateStudentHour({
       ...value,
       studentNo

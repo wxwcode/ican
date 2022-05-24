@@ -124,17 +124,17 @@ const payStatusList = [
   {
     label: '正常',
     value: 0,
-    color: '#eee',
+    color: '#9d9595d9',
   },
   {
     label: '评估',
     value: 1,
-    color: 'green',
+    color: '#9ed766',
   },
   {
     label: '续费',
     value: 2,
-    color: 'red',
+    color: '#ed0c21d9',
   },
 ];
 function setMap(v) {

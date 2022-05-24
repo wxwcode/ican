@@ -52,7 +52,7 @@ const BaseView = () => {
   };
   const t = (v) => {
     if (!v) return '';
-    const o = evaluationLevelList.find((item) => (item.value = v));
+    const o = evaluationLevelList.find((item) => (item.value === v));
     return o ? o.label : '';
   };
   const downloadFile = () => {

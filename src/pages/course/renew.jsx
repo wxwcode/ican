@@ -23,17 +23,17 @@ const colorMap = {
   3: {
     label: '体验',
     value: 3,
-    color: 'green',
+    color: '#a0e769',
   },
   4: {
     label: '实习1',
     value: 4,
-    color: '#cddc39',
+    color: '#fadb14',
   },
   5: {
     label: '实习2',
     value: 5,
-    color: 'yellow',
+    color: '#817e3a',
   },
   6: {
     label: '就业',
@@ -59,6 +59,9 @@ const TableList = () => {
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
       <ProTable
         headerTitle="查询表格"
+        pagination={{
+          pageSize: 10
+        }}
         actionRef={actionRef}
         rowKey="id"
         toolBarRender={() => [
@@ -143,14 +146,14 @@ const TableList = () => {
             title: '续费状态',
             dataIndex: 'renewalPayStatusDesc',
             search: false,
-            render: (key, record) => <Tag color={getPayColor(record.payStatus)}>{key}</Tag>,
+            render: (key, record) => <Tag style={{width: '60px', textAlign: 'center'}} color={getPayColor(record.payStatus)}>{key}</Tag>,
           },
           {
             title: '剩余课时',
             dataIndex: 'totalClassHours',
             search: false,
             render: (key, record) => (
-              <Tag color={getPayColor(record.payStatus)}>
+              <Tag style={{width: '80px', textAlign: 'center'}} color={getPayColor(record.payStatus)}>
                 {record.availableClassHours}/{record.totalClassHours}
               </Tag>
             ),

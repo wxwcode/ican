@@ -20,7 +20,7 @@ export default () => {
         {
           key: 'I Can客户电子管理系统',
           title: 'I Can客户电子管理系统',
-          href: 'http://ican.kdfcc.com',
+          href: 'http://kdfcc.com',
           blankTarget: true,
         },
       ]}

@@ -395,46 +395,48 @@ const BaseView = () => {
                   name={['familyInfoBo', 'weChat']}
                   label="微信号"
                 />
-                <ProFormText
-                  width="md"
-                  colProps={{ md: 12, xl: 8 }}
-                  name={['familyInfoBo', 'guardianName']}
-                  label="监护人"
-                  required
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入监护人姓名',
-                    },
-                  ]}
-                />
-                <ProFormSelect
-                  width="md"
-                  colProps={{ md: 12, xl: 8 }}
-                  name={['familyInfoBo', 'guardianRelation']}
-                  label="监护人关系"
-                  required
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入学生与监护人关系',
-                    },
-                  ]}
-                  options={guardianRelationList}
-                />
-                <ProFormText
-                  width="md"
-                  colProps={{ md: 12, xl: 8 }}
-                  name={['familyInfoBo', 'guardianPhone']}
-                  label="监护人手机号"
-                  required
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入监护人手机号',
-                    },
-                  ]}
-                />
+                <ProForm.Group>
+                  <ProFormText
+                    width="md"
+                    colProps={{ md: 12, xl: 8 }}
+                    name={['familyInfoBo', 'guardianName']}
+                    label="监护人"
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: '请输入监护人姓名',
+                      },
+                    ]}
+                  />
+                  <ProFormSelect
+                    width="md"
+                    colProps={{ md: 12, xl: 8 }}
+                    name={['familyInfoBo', 'guardianRelation']}
+                    label="监护人关系"
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: '请输入学生与监护人关系',
+                      },
+                    ]}
+                    options={guardianRelationList}
+                  />
+                  <ProFormText
+                    width="md"
+                    colProps={{ md: 12, xl: 8 }}
+                    name={['familyInfoBo', 'guardianPhone']}
+                    label="监护人手机号"
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: '请输入监护人手机号',
+                      },
+                    ]}
+                  />
+                </ProForm.Group>
                 <ProFormText
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
