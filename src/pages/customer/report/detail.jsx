@@ -4,9 +4,9 @@ import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { Button, Card, Descriptions, Divider } from 'antd';
 import React, { useRef, useState } from 'react';
-import { useParams, useRequest, history } from 'umi';
+import { useRequest, history } from 'umi';
 import dayjs from 'dayjs';
-import { getAge } from '@/utils/index'
+import { getAge } from '@/utils/index';
 import AddForm from '../components/AddReport';
 import styles from '../detail/index.less';
 import { getCustomerById, queryEstimateList } from '../service';
@@ -56,9 +56,9 @@ const columns = [
   },
 ];
 
-const BaseView = () => {
+const BaseView = (props) => {
   const actionRef = useRef();
-  const { id } = useParams();
+  const { id } = props.location.query;
   /** 新建窗口的弹窗 */
   const [createVisible, handleVisible] = useState(false);
   const { data: customerInfo, loading } = useRequest(() => {
@@ -75,10 +75,14 @@ const BaseView = () => {
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 120 }}>
-      <div className={styles.back} onClick={() => {
-        history.goBack();
-      }}>
-        <LeftOutlined />返回
+      <div
+        className={styles.back}
+        onClick={() => {
+          history.goBack();
+        }}
+      >
+        <LeftOutlined />
+        返回
       </div>
       {loading || !customerInfo ? null : (
         <Card bordered={false}>
@@ -96,9 +100,7 @@ const BaseView = () => {
                 {customerInfo?.name || ''}
                 {customerInfo?.baseInfoBo?.petName ? `(${customerInfo?.baseInfoBo?.petName})` : ''}
               </Descriptions.Item>
-              <Descriptions.Item label="学号">
-                {customerInfo?.studentNo || ''}
-              </Descriptions.Item>
+              <Descriptions.Item label="学号">{customerInfo?.studentNo || ''}</Descriptions.Item>
               <Descriptions.Item label="客户状态">
                 {customerStatusMap()[customerInfo.customerStatus] || ''}
               </Descriptions.Item>
@@ -106,11 +108,13 @@ const BaseView = () => {
                 {customerInfo?.customerManager || ''}
               </Descriptions.Item>
               <Descriptions.Item label="出生日期">
-                { customerInfo?.birthDate ? dayjs(customerInfo?.birthDate).format('YYYY-MM-DD') : ''}
+                {customerInfo?.birthDate ? dayjs(customerInfo?.birthDate).format('YYYY-MM-DD') : ''}
                 {customerInfo?.birthDate ? `（${getAge(customerInfo?.birthDate)}）` : ''}
               </Descriptions.Item>
               <Descriptions.Item label="注册时间">
-                {customerInfo?.registerDate  ? dayjs(customerInfo?.registerDate).format('YYYY-MM-DD') : ''}
+                {customerInfo?.registerDate
+                  ? dayjs(customerInfo?.registerDate).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item label="服务中心">
                 {customerInfo?.servicePlace || ''}

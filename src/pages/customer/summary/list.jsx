@@ -48,14 +48,20 @@ const TableList = () => {
   const actionRef = useRef();
   /** 国际化配置 */
   const goPath = (row) => {
-    history.push(`/crm/summarydetail/${row.id}`);
+    // history.push(`/crm/summarydetail/${row.id}`);
+    history.push({
+      pathname: '/crm/summarydetail',
+      query: {
+        id: row.id,
+      },
+    });
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
       <ProTable
         headerTitle="查询表格"
         pagination={{
-          pageSize: 10
+          pageSize: 10,
         }}
         actionRef={actionRef}
         rowKey="id"
@@ -141,7 +147,11 @@ const TableList = () => {
             title: '客户状态',
             dataIndex: 'customerStatus',
             search: false,
-            render: (key, record) => <Tag style={{width: '60px', textAlign: 'center'}} color={colorMap[key].color}>{colorMap[key].label}</Tag>,
+            render: (key, record) => (
+              <Tag style={{ width: '60px', textAlign: 'center' }} color={colorMap[key].color}>
+                {colorMap[key].label}
+              </Tag>
+            ),
           },
           {
             title: '周/月小结',

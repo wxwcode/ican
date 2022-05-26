@@ -1,12 +1,18 @@
 import { customerStatusMap, evaluationLevelList } from '@/utils/config';
-import { FileWordOutlined, ManOutlined, WomanOutlined, LeftOutlined, FilePdfOutlined } from '@ant-design/icons';
+import {
+  FileWordOutlined,
+  ManOutlined,
+  WomanOutlined,
+  LeftOutlined,
+  FilePdfOutlined,
+} from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Descriptions, Divider, Table } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useLocation, useRequest, history } from 'umi';
 import { getCustomerById } from '../service';
-import { getAge } from '@/utils/index'
+import { getAge } from '@/utils/index';
 import styles from './index.less';
 
 const { Meta } = Card;
@@ -52,7 +58,7 @@ const BaseView = () => {
   };
   const t = (v) => {
     if (!v) return '';
-    const o = evaluationLevelList.find((item) => (item.value === v));
+    const o = evaluationLevelList.find((item) => item.value === v);
     return o ? o.label : '';
   };
   const downloadFile = () => {
@@ -61,10 +67,14 @@ const BaseView = () => {
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 120 }}>
-      <div className={styles.back} onClick={() => {
-        history.goBack();
-      }}>
-        <LeftOutlined />返回
+      <div
+        className={styles.back}
+        onClick={() => {
+          history.goBack();
+        }}
+      >
+        <LeftOutlined />
+        返回
       </div>
       {loading || !customerInfo ? null : (
         <Card bordered={false}>
@@ -79,12 +89,10 @@ const BaseView = () => {
             </div>
             <Descriptions title="" className={styles.contentInfo}>
               <Descriptions.Item label="姓名">
-                {customerInfo?.name || ''} 
+                {customerInfo?.name || ''}
                 {customerInfo?.baseInfoBo?.petName ? `(${customerInfo?.baseInfoBo?.petName})` : ''}
               </Descriptions.Item>
-              <Descriptions.Item label="学号">
-                {customerInfo?.studentNo || ''}
-              </Descriptions.Item>
+              <Descriptions.Item label="学号">{customerInfo?.studentNo || ''}</Descriptions.Item>
               <Descriptions.Item label="客户状态">
                 {customerStatusMap()[customerInfo.customerStatus] || ''}
               </Descriptions.Item>
@@ -92,11 +100,13 @@ const BaseView = () => {
                 {customerInfo?.customerManager || ''}
               </Descriptions.Item>
               <Descriptions.Item label="出生日期">
-                { customerInfo?.birthDate ? dayjs(customerInfo?.birthDate).format('YYYY-MM-DD') : ''}
+                {customerInfo?.birthDate ? dayjs(customerInfo?.birthDate).format('YYYY-MM-DD') : ''}
                 {customerInfo?.birthDate ? `（${getAge(customerInfo?.birthDate)}）` : ''}
               </Descriptions.Item>
               <Descriptions.Item label="注册时间">
-                {customerInfo?.registerDate  ? dayjs(customerInfo?.registerDate).format('YYYY-MM-DD') : ''}
+                {customerInfo?.registerDate
+                  ? dayjs(customerInfo?.registerDate).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item label="服务中心">
                 {customerInfo?.servicePlace || ''}
@@ -148,8 +158,7 @@ const BaseView = () => {
               {s(customerInfo?.baseInfoBo?.evaluationLevel)}
             </Descriptions.Item>
             <Descriptions.Item label="剩余课时">
-              {customerInfo?.availableClassHours || ''}/
-              {customerInfo?.totalClassHours || ''}
+              {customerInfo?.availableClassHours || ''}/{customerInfo?.totalClassHours || ''}
             </Descriptions.Item>
           </Descriptions>
           <Descriptions
@@ -221,27 +230,29 @@ const BaseView = () => {
                 onClick={downloadFile}
                 style={{ width: 240 }}
                 cover={
-                  customerInfo?.baseInfoBo?.questionnaireFile?.extension === 'pdf' ?
-                  <FilePdfOutlined
-                    style={{
-                      textAlign: 'center',
-                      fontSize: '56px',
-                      margin: '30px 0',
-                      color: 'blue',
-                    }}
-                  /> :
-                  <FileWordOutlined
-                    style={{
-                      textAlign: 'center',
-                      fontSize: '56px',
-                      margin: '30px 0',
-                      color: 'blue',
-                    }}
-                  />
+                  customerInfo?.baseInfoBo?.questionnaireFile?.extension === 'pdf' ? (
+                    <FilePdfOutlined
+                      style={{
+                        textAlign: 'center',
+                        fontSize: '56px',
+                        margin: '30px 0',
+                        color: 'blue',
+                      }}
+                    />
+                  ) : (
+                    <FileWordOutlined
+                      style={{
+                        textAlign: 'center',
+                        fontSize: '56px',
+                        margin: '30px 0',
+                        color: 'blue',
+                      }}
+                    />
+                  )
                 }
               >
                 <Meta
-                  title='家庭与生活调查表'
+                  title="家庭与生活调查表"
                   description={customerInfo?.baseInfoBo?.questionnaireFile?.downloadLocation || ''}
                 />
               </Card>

@@ -10,8 +10,8 @@ import styles from '../detail/index.less';
 import { getCustomerById } from '../service';
 import SummaryDetail from './components/SummaryDetail';
 
-const BaseView = () => {
-  const { id } = useParams();
+const BaseView = (props) => {
+  const { id } = props.location.query;
   const { data: customerInfo, loading } = useRequest(() => {
     if (id) {
       return getCustomerById({ id });

@@ -101,7 +101,7 @@ export default defineConfig({
           name: 'reportDetail',
           icon: 'smile',
           hideInMenu: true,
-          path: '/crm/reportdetail/:id',
+          path: '/crm/reportdetail',
           component: './customer/report/detail',
         },
         {
@@ -114,7 +114,7 @@ export default defineConfig({
           name: 'summarydetail',
           icon: 'smile',
           hideInMenu: true,
-          path: '/crm/summarydetail/:id',
+          path: '/crm/summarydetail',
           component: './customer/summary/detail',
         },
         {
