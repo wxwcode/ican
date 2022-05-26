@@ -4,6 +4,7 @@ import { history } from 'umi';
 import yue from '@/asstes/yue.jpg';
 import zhou from '@/asstes/zhou.jpg';
 import styles from './styles.less';
+import dayjs from 'dayjs';
 import { deleteSummary } from '../../service';
 
 const { Meta } = Card;
