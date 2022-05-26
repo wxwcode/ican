@@ -93,3 +93,35 @@ export async function readFile(attachmentId) {
     },
   });
 }
+export async function queryWeekMenuList(studentId) {
+  return request(`/api/summary/queryWeekMenuList`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: {
+      studentId,
+    },
+  });
+}
+
+export async function saveSummary(data) {
+  return request(`/api/summary/saveSummaryInfo`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+  });
+}
+export async function deleteSummary(id) {
+  return request(`/api/summary/delete`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: {
+      id,
+    },
+  });
+}

@@ -10,8 +10,8 @@ const Settings = {
   pwa: false,
   title: 'I Can客户电子管理系统',
   logo: '/logo.png',
-  // title: 'Ant Design Pro',
-  // logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  // title: '',
+  // logo: 'https://wz-website-oss.chinaweizheng.com/file-resource/test/common/logo/pc_qzd_new_logo.png',
   iconfontUrl: '',
 };
 export default Settings;
