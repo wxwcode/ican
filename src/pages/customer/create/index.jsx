@@ -149,10 +149,14 @@ const BaseView = () => {
 
   return (
     <PageContainer waterMarkProps={{ gapX: 320, gapY: 320 }}>
-      <div className={styles.back} onClick={() => {
-        history.goBack();
-      }}>
-        <LeftOutlined />返回
+      <div
+        className={styles.back}
+        onClick={() => {
+          history.goBack();
+        }}
+      >
+        <LeftOutlined />
+        返回
       </div>
       <div className={styles.baseView}>
         {loading ? null : (
@@ -306,6 +310,13 @@ const BaseView = () => {
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'assessmentTeacher']}
                   label="评估督导"
+                />
+                <ProFormSelect
+                  width="md"
+                  colProps={{ md: 12, xl: 8 }}
+                  name={['baseInfoBo', 'workClotheSize']}
+                  label="工服尺码"
+                  options={['S', 'M', 'L', 'XL', 'XXL']}
                 />
                 <ProFormText
                   width="md"

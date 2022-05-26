@@ -80,7 +80,7 @@ const BaseView = () => {
         <Card bordered={false}>
           <div className={styles.info}>
             <div className={styles.avatar}>
-              <img src={customerInfo?.baseInfoBo.avatar} alt="图像" />
+              <img src={customerInfo?.baseInfoBo.avatar || '/logo.png'} alt="图像" />
               {customerInfo?.baseInfoBo?.gender === '1' ? (
                 <WomanOutlined style={{ color: 'red' }} className={styles.sex} />
               ) : (
@@ -111,6 +111,12 @@ const BaseView = () => {
               <Descriptions.Item label="服务中心">
                 {customerInfo?.servicePlace || ''}
               </Descriptions.Item>
+              <Descriptions.Item label="评估等级">
+                {t(customerInfo?.baseInfoBo?.evaluationLevel)}
+              </Descriptions.Item>
+              <Descriptions.Item label="评估督导">
+                {customerInfo?.baseInfoBo?.assessmentTeacher || ''}
+              </Descriptions.Item>
             </Descriptions>
           </div>
           <Divider
@@ -136,17 +142,14 @@ const BaseView = () => {
             <Descriptions.Item label="体重">
               {customerInfo?.baseInfoBo?.weight || ''}kg
             </Descriptions.Item>
-            <Descriptions.Item label="评估等级">
-              {t(customerInfo?.baseInfoBo?.evaluationLevel)}
-            </Descriptions.Item>
             <Descriptions.Item label="临床诊断">
               {customerInfo?.baseInfoBo?.clinicalDiagnosis || ''}
             </Descriptions.Item>
             <Descriptions.Item label="服务老师">
               {customerInfo?.baseInfoBo?.serviceTeacher || ''}
             </Descriptions.Item>
-            <Descriptions.Item label="评估督导">
-              {customerInfo?.baseInfoBo?.assessmentTeacher || ''}
+            <Descriptions.Item label="工服尺码">
+              {customerInfo?.baseInfoBo?.workClotheSize || ''}
             </Descriptions.Item>
             <Descriptions.Item label="招生来源">
               {customerInfo?.baseInfoBo?.studentSource || ''}

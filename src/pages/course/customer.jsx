@@ -53,7 +53,7 @@ const TableList = () => {
       <ProTable
         headerTitle="查询表格"
         pagination={{
-          pageSize: 10
+          pageSize: 10,
         }}
         actionRef={actionRef}
         rowKey="id"
@@ -112,6 +112,12 @@ const TableList = () => {
             valueType: 'text',
           },
           {
+            title: '客户经理',
+            dataIndex: 'customerManager',
+            hideInTable: true,
+            valueType: 'text',
+          },
+          {
             title: '服务中心',
             dataIndex: 'servicePlace',
             filters: true,
@@ -139,7 +145,11 @@ const TableList = () => {
             title: '客户状态',
             dataIndex: 'customerStatus',
             search: false,
-            render: (key, record) => <Tag style={{width: '60px', textAlign: 'center'}} color={colorMap[key].color}>{colorMap[key].label}</Tag>,
+            render: (key, record) => (
+              <Tag style={{ width: '60px', textAlign: 'center' }} color={colorMap[key].color}>
+                {colorMap[key].label}
+              </Tag>
+            ),
           },
           {
             title: '操作',

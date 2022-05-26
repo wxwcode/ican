@@ -1,4 +1,4 @@
-import { customerStatusMap } from '@/utils/config';
+import { customerStatusMap, evaluationLevelList } from '@/utils/config';
 import { ManOutlined, WomanOutlined, LeftOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
@@ -69,9 +69,10 @@ const BaseView = (props) => {
     }
   });
 
-  const downloadFile = () => {
-    const url = customerInfo?.baseInfoBo?.questionnaireFile?.downloadLocation || '';
-    if (url) window.open(url);
+  const t = (v) => {
+    if (!v) return '';
+    const o = evaluationLevelList.find((item) => item.value === v);
+    return o ? o.label : '';
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 120 }}>
@@ -88,7 +89,7 @@ const BaseView = (props) => {
         <Card bordered={false}>
           <div className={styles.info}>
             <div className={styles.avatar}>
-              <img src={customerInfo?.baseInfoBo.avatar} alt="图像" />
+              <img src={customerInfo?.baseInfoBo.avatar || '/logo.png'} alt="图像" />
               {customerInfo?.baseInfoBo?.gender === '1' ? (
                 <WomanOutlined style={{ color: 'red' }} className={styles.sex} />
               ) : (
@@ -118,6 +119,12 @@ const BaseView = (props) => {
               </Descriptions.Item>
               <Descriptions.Item label="服务中心">
                 {customerInfo?.servicePlace || ''}
+              </Descriptions.Item>
+              <Descriptions.Item label="评估等级">
+                {t(customerInfo?.baseInfoBo?.evaluationLevel)}
+              </Descriptions.Item>
+              <Descriptions.Item label="评估督导">
+                {customerInfo?.baseInfoBo?.assessmentTeacher || ''}
               </Descriptions.Item>
             </Descriptions>
           </div>

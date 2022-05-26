@@ -108,3 +108,18 @@ export const layout = ({ initialState }) => {
     ...initialState?.settings,
   };
 };
+const authHeaderInterceptor = (url, options) => {
+  const authHeader = { accessToken: 'Bearer xxxxxx' };
+  return {
+    options: { ...options, headers: authHeader },
+  };
+};
+const demoResponseInterceptors = (response, options) => {
+  console.log(response, options);
+  return response;
+};
+export const request = {
+  errorHandler: () => message.error('服务错误'),
+  requestInterceptors: [authHeaderInterceptor],
+  responseInterceptors: [demoResponseInterceptors],
+};
