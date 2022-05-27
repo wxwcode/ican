@@ -44,6 +44,7 @@ const TableList = () => {
       if (status === 0 && data && data.length) {
         setList(data);
         const yl = data.map((item) => item.year); // 设置年列表
+        setYears(yl);
         const ys = data.find((item) => item.year === selectKey);
         if (ys) {
           setMonths(ys.summaryMonthList || []);
@@ -63,7 +64,7 @@ const TableList = () => {
     console.log(key);
   };
   const getMenu = () => {
-    return years.map((key) => <Item key={key}>{key}</Item>);
+    return years.map((key) => <Item key={key}>{key}年</Item>);
   };
 
   if (loading) return null;
@@ -95,6 +96,7 @@ const TableList = () => {
             {!!months && !!months.length ? (
               <Collapse
                 style={{ flex: 1 }}
+                key={selectKey}
                 defaultActiveKey={defaultActiveKey}
                 onChange={onChange}
                 expandIconPosition="right"
