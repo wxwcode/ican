@@ -25,7 +25,7 @@ const BaseView = (props) => {
     return o ? o.label : '';
   };
   return (
-    <PageContainer waterMarkProps={{ gapX: 120, gapY: 120 }}>
+    <PageContainer>
       <div
         className={styles.back}
         onClick={() => {

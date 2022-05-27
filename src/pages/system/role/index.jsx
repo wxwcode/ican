@@ -6,7 +6,6 @@ import ProTable from '@ant-design/pro-table';
 import AddForm from './components/AddForm';
 import { getRoleList, updateRole } from './service';
 
-
 const TableList = () => {
   /** 新建窗口的弹窗 */
   const [createVisible, handleVisible] = useState(false);
@@ -18,17 +17,22 @@ const TableList = () => {
     if (status === 0) action?.reload();
   }
   return (
-    <PageContainer waterMarkProps={{ gapX: 120, gapY: 100}}>
+    <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
       <ProTable
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+        }}
         toolBarRender={() => [
           <Button
             type="primary"
             key="primary"
             onClick={() => {
-              setCurrentRow(null)
+              setCurrentRow(null);
               handleVisible(true);
             }}
           >
@@ -46,12 +50,12 @@ const TableList = () => {
                 key="config"
                 onClick={() => {
                   // formRef.current.edit(data)
-                  setCurrentRow({...record })
+                  setCurrentRow({ ...record });
                   handleVisible(true);
                 }}
               >
                 编辑
-              </a>
+              </a>,
             ],
           },
           {

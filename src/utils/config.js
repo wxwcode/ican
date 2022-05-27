@@ -137,6 +137,28 @@ const payStatusList = [
     color: '#ed0c21d9',
   },
 ];
+export const clinicalDiagnosisList = [
+  {
+    label: '孤独症(自闭症)',
+    value: '孤独症(自闭症)',
+  },
+  {
+    label: '智力障碍',
+    value: '智力障碍',
+  },
+  {
+    label: '唐氏综合征',
+    value: '唐氏综合征',
+  },
+  {
+    label: '脑瘫',
+    value: '脑瘫',
+  },
+  {
+    label: '其它',
+    value: '其它',
+  },
+];
 function setMap(v) {
   const map = {};
   v.forEach((item) => {

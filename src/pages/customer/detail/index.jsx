@@ -66,7 +66,7 @@ const BaseView = () => {
     if (url) window.open(url);
   };
   return (
-    <PageContainer waterMarkProps={{ gapX: 120, gapY: 120 }}>
+    <PageContainer>
       <div
         className={styles.back}
         onClick={() => {
@@ -176,7 +176,7 @@ const BaseView = () => {
             <Descriptions.Item label="固定电话">
               {customerInfo?.familyInfoBo?.lineFixed || ''}
             </Descriptions.Item>
-            <Descriptions.Item label="联系方式">
+            <Descriptions.Item label="手机号码">
               {customerInfo?.familyInfoBo?.linePhone || ''}
             </Descriptions.Item>
             <Descriptions.Item label="微信号">
@@ -188,7 +188,7 @@ const BaseView = () => {
             <Descriptions.Item label="监护人关系">
               {customerInfo?.familyInfoBo?.guardianRelation || ''}
             </Descriptions.Item>
-            <Descriptions.Item label="监护人联系方式">
+            <Descriptions.Item label="监护人手机号码">
               {customerInfo?.familyInfoBo?.guardianPhone || ''}
             </Descriptions.Item>
             <Descriptions.Item label="家庭成员1姓名">

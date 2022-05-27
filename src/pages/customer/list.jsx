@@ -55,7 +55,9 @@ const TableList = () => {
       <ProTable
         headerTitle="查询表格"
         pagination={{
-          pageSize: 10
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
         }}
         actionRef={actionRef}
         rowKey="id"
@@ -72,6 +74,12 @@ const TableList = () => {
         ]}
         request={getCustomerList}
         columns={[
+          {
+            title: '序号',
+            dataIndex: 'index',
+            valueType: 'index',
+            width: 48,
+          },
           {
             title: '头像',
             search: false,
@@ -138,17 +146,28 @@ const TableList = () => {
             valueEnum: customerStatusMap(),
           },
           {
+            title: '客户经理',
+            dataIndex: 'customerManager',
+            valueType: 'text',
+          },
+          {
             title: '客户状态',
             dataIndex: 'customerStatus',
             search: false,
-            render: (key, record) => <Tag style={{width: '60px', textAlign: 'center'}} color={colorMap[key].color}>{colorMap[key].label}</Tag>,
+            render: (key, record) => (
+              <Tag style={{ width: '60px', textAlign: 'center' }} color={colorMap[key].color}>
+                {colorMap[key].label}
+              </Tag>
+            ),
           },
           {
             title: '报告',
             dataIndex: 'file',
             search: false,
             render: (file, row) => (
-              <Button size='small' type="primary" onClick={() => goPath(row)}>查看报告</Button>
+              <Button size="small" type="primary" onClick={() => goPath(row)}>
+                查看报告
+              </Button>
             ),
           },
           {

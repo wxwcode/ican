@@ -23,6 +23,7 @@ import {
   customerStatusList,
   guardianRelationList,
   servicePlaceList,
+  clinicalDiagnosisList,
 } from '@/utils/config';
 import styles from './index.less';
 import dayjs from 'dayjs';
@@ -148,7 +149,7 @@ const BaseView = () => {
   };
 
   return (
-    <PageContainer waterMarkProps={{ gapX: 320, gapY: 320 }}>
+    <PageContainer>
       <div
         className={styles.back}
         onClick={() => {
@@ -202,46 +203,25 @@ const BaseView = () => {
                 />
                 <ProFormDatePicker
                   width="md"
-                  required
                   colProps={{ md: 12, xl: 8 }}
                   name="birthDate"
                   transform={(v) => ({ birthDate: new Date(v).getTime() })}
                   placeholder="年-月-日"
                   label="出生日期"
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入出生日期',
-                    },
-                  ]}
                 />
                 <ProFormText
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'height']}
-                  required
                   placeholder="单位：厘米（cm）"
                   label="身高"
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入身高（厘米）',
-                    },
-                  ]}
                 />
                 <ProFormText
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'weight']}
-                  required
                   placeholder="单位：千克（kg）"
                   label="体重"
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入体重',
-                    },
-                  ]}
                 />
                 <ProFormSelect
                   width="md"
@@ -272,18 +252,12 @@ const BaseView = () => {
                   ]}
                   options={evaluationLevelList}
                 />
-                <ProFormText
+                <ProFormSelect
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'clinicalDiagnosis']}
-                  required
                   label="临床诊断"
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入临床诊断',
-                    },
-                  ]}
+                  options={clinicalDiagnosisList}
                 />
                 <ProFormSelect
                   width="md"
@@ -391,12 +365,17 @@ const BaseView = () => {
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
                   name={['familyInfoBo', 'linePhone']}
-                  label="手机号"
+                  label="手机号码"
                   required
                   rules={[
                     {
                       required: true,
-                      message: '请输入您的昵称!',
+                      message: '请输入您的手机号!',
+                    },
+                    {
+                      max: 13,
+                      message: '输入有误，请检查',
+                      validateTrigger: 'onChange',
                     },
                   ]}
                 />
@@ -472,23 +451,13 @@ const BaseView = () => {
                   name={['familyInfoBo', 'address']}
                   colProps={{ span: 24 }}
                   label="联系地址"
-                  required
                   type="group"
                   transform={(value) => ({
-                    linkProvinceName: value[0],
-                    linkCityName: value[1],
-                    linkCountyName: value[2],
-                    linkAddrName: value[3],
+                    linkProvinceName: value[0] || '',
+                    linkCityName: value[1] || '',
+                    linkCountyName: value[2] || '',
+                    linkAddrName: value[3] || '',
                   })}
-                  rules={[
-                    {
-                      required: true,
-                      message: '请输入完整的联系地址',
-                    },
-                    {
-                      validator: validatorAddress,
-                    },
-                  ]}
                 >
                   <Input className={styles.phone_number} suffix="省" />
                   <Input className={styles.phone_number} suffix="市" />

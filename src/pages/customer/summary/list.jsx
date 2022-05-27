@@ -62,6 +62,8 @@ const TableList = () => {
         headerTitle="查询表格"
         pagination={{
           pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
         }}
         actionRef={actionRef}
         rowKey="id"
@@ -78,6 +80,12 @@ const TableList = () => {
         ]}
         request={getCustomerList}
         columns={[
+          {
+            title: '序号',
+            dataIndex: 'index',
+            valueType: 'index',
+            width: 48,
+          },
           {
             title: '头像',
             search: false,
@@ -142,6 +150,11 @@ const TableList = () => {
             hideInTable: true,
             valueType: 'select',
             valueEnum: customerStatusMap(),
+          },
+          {
+            title: '客户经理',
+            dataIndex: 'customerManager',
+            valueType: 'text',
           },
           {
             title: '客户状态',

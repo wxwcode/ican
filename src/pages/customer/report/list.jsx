@@ -63,6 +63,8 @@ const TableList = () => {
         headerTitle="查询表格"
         pagination={{
           pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
         }}
         actionRef={actionRef}
         rowKey="id"
@@ -79,6 +81,12 @@ const TableList = () => {
         ]}
         request={getCustomerList}
         columns={[
+          {
+            title: '序号',
+            dataIndex: 'index',
+            valueType: 'index',
+            width: 48,
+          },
           {
             title: '头像',
             search: false,
@@ -145,6 +153,11 @@ const TableList = () => {
             valueEnum: customerStatusMap(),
           },
           {
+            title: '客户经理',
+            dataIndex: 'customerManager',
+            valueType: 'text',
+          },
+          {
             title: '客户状态',
             dataIndex: 'customerStatus',
             search: false,
@@ -163,6 +176,26 @@ const TableList = () => {
                 查看报告
               </Button>
             ),
+          },
+          {
+            title: '操作',
+            width: 100,
+            valueType: 'option',
+            render: (_, record) => [
+              <a
+                key="config"
+                onClick={() => {
+                  history.push({
+                    pathname: '/crm/detail',
+                    query: {
+                      userId: record.id,
+                    },
+                  });
+                }}
+              >
+                详情
+              </a>,
+            ],
           },
         ]}
       />

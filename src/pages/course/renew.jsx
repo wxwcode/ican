@@ -3,8 +3,8 @@ import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button, Image, Tag } from 'antd';
-import UploadExport from './components/UploadExport'
-import EditCourse from './components/EditCourse'
+import UploadExport from './components/UploadExport';
+import EditCourse from './components/EditCourse';
 import React, { useRef, useState } from 'react';
 import { history } from 'umi';
 import { getRenewalList } from './service';
@@ -48,11 +48,10 @@ const colorMap = {
 };
 const TableList = () => {
   const actionRef = useRef();
-  const [ visible, handleVisible ] = useState(false)
-  const [ editVisible, handleEditVisible ] = useState(false)
-  const [ currentData, setCurrentData ] = useState(null)
+  const [visible, handleVisible] = useState(false);
+  const [editVisible, handleEditVisible] = useState(false);
+  const [currentData, setCurrentData] = useState(null);
 
-  
   /** 国际化配置 */
 
   return (
@@ -60,7 +59,9 @@ const TableList = () => {
       <ProTable
         headerTitle="查询表格"
         pagination={{
-          pageSize: 10
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
         }}
         actionRef={actionRef}
         rowKey="id"
@@ -69,7 +70,7 @@ const TableList = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              handleVisible(true)
+              handleVisible(true);
             }}
           >
             <VerticalAlignBottomOutlined /> 导入更新
@@ -77,6 +78,12 @@ const TableList = () => {
         ]}
         request={getRenewalList}
         columns={[
+          {
+            title: '序号',
+            dataIndex: 'index',
+            valueType: 'index',
+            width: 48,
+          },
           {
             title: '头像',
             search: false,
@@ -146,14 +153,24 @@ const TableList = () => {
             title: '续费状态',
             dataIndex: 'renewalPayStatusDesc',
             search: false,
-            render: (key, record) => <Tag style={{width: '60px', textAlign: 'center'}} color={getPayColor(record.payStatus)}>{key}</Tag>,
+            render: (key, record) => (
+              <Tag
+                style={{ width: '60px', textAlign: 'center' }}
+                color={getPayColor(record.payStatus)}
+              >
+                {key}
+              </Tag>
+            ),
           },
           {
             title: '剩余课时',
             dataIndex: 'totalClassHours',
             search: false,
             render: (key, record) => (
-              <Tag style={{width: '80px', textAlign: 'center'}} color={getPayColor(record.payStatus)}>
+              <Tag
+                style={{ width: '80px', textAlign: 'center' }}
+                color={getPayColor(record.payStatus)}
+              >
                 {record.availableClassHours}/{record.totalClassHours}
               </Tag>
             ),
@@ -173,7 +190,9 @@ const TableList = () => {
                     },
                   });
                 }}
-              >查看档案</Button>
+              >
+                查看档案
+              </Button>
             ),
           },
           {
@@ -182,14 +201,14 @@ const TableList = () => {
             valueType: 'option',
             render: (_, record) => [
               <a
-              key="config"
-              onClick={() => {
-                setCurrentData({...record})
-                handleEditVisible(true)
-              }}
-            > 
-              更新课时
-            </a>,
+                key="config"
+                onClick={() => {
+                  setCurrentData({ ...record });
+                  handleEditVisible(true);
+                }}
+              >
+                更新课时
+              </a>,
             ],
           },
         ]}

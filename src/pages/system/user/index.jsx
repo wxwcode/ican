@@ -21,6 +21,11 @@ const TableList = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+        }}
         toolBarRender={() => [
           <Button
             type="primary"
