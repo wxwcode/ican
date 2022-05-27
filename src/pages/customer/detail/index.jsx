@@ -145,6 +145,12 @@ const BaseView = () => {
             <Descriptions.Item label="临床诊断">
               {customerInfo?.baseInfoBo?.clinicalDiagnosis || ''}
             </Descriptions.Item>
+            {customerInfo?.baseInfoBo?.clinicalDiagnosis === '其它' &&
+            customerInfo?.baseInfoBo?.clinicalDiagnosisOther ? (
+              <Descriptions.Item label="其它诊断">
+                {customerInfo?.baseInfoBo?.clinicalDiagnosisOther || ''}
+              </Descriptions.Item>
+            ) : null}
             <Descriptions.Item label="服务老师">
               {customerInfo?.baseInfoBo?.serviceTeacher || ''}
             </Descriptions.Item>
@@ -172,9 +178,6 @@ const BaseView = () => {
           >
             <Descriptions.Item label="联系人">
               {customerInfo?.familyInfoBo?.linkName || ''}
-            </Descriptions.Item>
-            <Descriptions.Item label="固定电话">
-              {customerInfo?.familyInfoBo?.lineFixed || ''}
             </Descriptions.Item>
             <Descriptions.Item label="手机号码">
               {customerInfo?.familyInfoBo?.linePhone || ''}
@@ -205,6 +208,9 @@ const BaseView = () => {
               {customerInfo?.familyInfoBo?.linkCityName || '__'}市
               {customerInfo?.familyInfoBo?.linkCountyName || '__'}区
               {customerInfo?.familyInfoBo?.linkAddrName || '__'}
+            </Descriptions.Item>
+            <Descriptions.Item label="固定电话">
+              {customerInfo?.familyInfoBo?.lineFixed || ''}
             </Descriptions.Item>
           </Descriptions>
           <Divider

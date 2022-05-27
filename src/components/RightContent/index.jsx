@@ -57,7 +57,7 @@ const GlobalHeaderRight = () => {
       >
         <QuestionCircleOutlined />
       </span> */}
-      <NoticeIconView />
+      {/* <NoticeIconView /> */}
       <Avatar menu />
       <SelectLang
         className={styles.action}
@@ -66,14 +66,14 @@ const GlobalHeaderRight = () => {
             lang: 'en-US',
             label: 'English',
             icon: 'us',
-            title: 'Language'
+            title: 'Language',
           },
           {
             lang: 'zh-CN',
             label: '简体中文',
             icon: 'cn',
-            title: '语言'
-          }
+            title: '语言',
+          },
         ]}
       />
     </Space>

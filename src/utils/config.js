@@ -57,6 +57,22 @@ export const studentSourceList = [
     label: '美团大众',
     value: '美团大众',
   },
+  {
+    label: '朋友圈',
+    value: '朋友圈',
+  },
+  {
+    label: '线下活动',
+    value: '线下活动',
+  },
+  {
+    label: '官网',
+    value: '官网',
+  },
+  {
+    label: '电话',
+    value: '电话',
+  },
 ];
 export const customerStatusList = [
   {
@@ -141,6 +157,10 @@ export const clinicalDiagnosisList = [
   {
     label: '孤独症(自闭症)',
     value: '孤独症(自闭症)',
+  },
+  {
+    label: '发育迟缓',
+    value: '发育迟缓',
   },
   {
     label: '智力障碍',

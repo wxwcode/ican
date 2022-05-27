@@ -12,6 +12,7 @@ import ProForm, {
   ProFormDigit,
   ProFormDatePicker,
   ProFormUploadButton,
+  ProFormDependency,
 } from '@ant-design/pro-form';
 import { EditableProTable } from '@ant-design/pro-table';
 import { useRequest } from 'umi';
@@ -60,6 +61,7 @@ const columns = [
 const BaseView = () => {
   const formRef = useRef();
   const location = useLocation();
+  const [editableKeys, setEditableRowKeys] = useState([5]);
   const { data: currentCustomer, loading } = useRequest(() => {
     const { userId } = location.query;
     if (userId) {
@@ -68,6 +70,12 @@ const BaseView = () => {
       return Promise.resolve({});
     }
   });
+  useEffect(() => {
+    if (currentCustomer && currentCustomer.educationBoList) {
+      const ids = currentCustomer.educationBoList.map((item) => item.id);
+      setEditableRowKeys(ids);
+    }
+  }, [currentCustomer]);
   const initInfo = () => {
     if (currentCustomer && currentCustomer.familyInfoBo) {
       const { linkProvinceName, linkCityName, linkCountyName, linkAddrName } =
@@ -81,9 +89,12 @@ const BaseView = () => {
         ];
       }
     }
+    // if (currentCustomer.educationBoList) {
+    //   const ids = currentCustomer.educationBoList.map(item => item.id)
+    //   setEditableRowKeys(ids)
+    // }
     return currentCustomer;
   };
-  const [editableKeys, setEditableRowKeys] = useState([5]);
   const [avatar, setAvatar] = useState('');
   const changeLevel = (v) => {
     const keyMap = {
@@ -255,13 +266,6 @@ const BaseView = () => {
                 <ProFormSelect
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
-                  name={['baseInfoBo', 'clinicalDiagnosis']}
-                  label="临床诊断"
-                  options={clinicalDiagnosisList}
-                />
-                <ProFormSelect
-                  width="md"
-                  colProps={{ md: 12, xl: 8 }}
                   name="servicePlace"
                   required
                   label="服务中心"
@@ -273,6 +277,31 @@ const BaseView = () => {
                   ]}
                   options={servicePlaceList}
                 />
+                <ProFormSelect
+                  width="md"
+                  colProps={{ md: 12, xl: 8 }}
+                  name={['baseInfoBo', 'clinicalDiagnosis']}
+                  label="临床诊断"
+                  options={clinicalDiagnosisList}
+                />
+                <ProFormDependency name={[['baseInfoBo', 'clinicalDiagnosis']]}>
+                  {({ baseInfoBo }) => {
+                    console.log(baseInfoBo.clinicalDiagnosis, 1111);
+                    console.log(baseInfoBo.clinicalDiagnosis === '其他', 222);
+                    if (baseInfoBo.clinicalDiagnosis === '其它') {
+                      console.log(baseInfoBo, 1111);
+                      return (
+                        <ProFormText
+                          width="md"
+                          colProps={{ md: 12, xl: 8 }}
+                          name={['baseInfoBo', 'clinicalDiagnosisOther']}
+                          placeholder="其他临床诊断"
+                          label="其他"
+                        />
+                      );
+                    }
+                  }}
+                </ProFormDependency>
                 <ProFormText
                   width="md"
                   colProps={{ md: 12, xl: 8 }}
@@ -290,7 +319,7 @@ const BaseView = () => {
                   colProps={{ md: 12, xl: 8 }}
                   name={['baseInfoBo', 'workClotheSize']}
                   label="工服尺码"
-                  options={['S', 'M', 'L', 'XL', 'XXL']}
+                  options={['S', 'M', 'L', 'XL', '2XL', '3XL']}
                 />
                 <ProFormText
                   width="md"

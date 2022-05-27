@@ -48,7 +48,13 @@ const TableList = () => {
   const actionRef = useRef();
   /** 国际化配置 */
   const goPath = (row) => {
-    history.push(`/crm/reportdetail/${row.id}`);
+    // history.push(`/crm/reportdetail/${row.id}`);
+    history.push({
+      pathname: '/crm/reportdetail',
+      query: {
+        id: row.id,
+      },
+    });
   };
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
