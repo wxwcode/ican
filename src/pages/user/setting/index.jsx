@@ -177,7 +177,7 @@ const Register = () => {
               },
             ]}
           >
-            <Input size="large" type="password" placeholder="至少6位密码，区分大小写" />
+            <Input size="large" type="password" placeholder="至少6位新的密码，区分大小写" />
           </FormItem>
         </Popover>
         <FormItem

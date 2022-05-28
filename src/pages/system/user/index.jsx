@@ -117,11 +117,11 @@ const TableList = () => {
             dataIndex: 'status',
             search: false,
             valueEnum: {
-              0: {
+              1: {
                 text: '禁用',
                 status: 'Error',
               },
-              1: {
+              0: {
                 text: '启用',
                 status: 'Processing',
               },
@@ -157,7 +157,6 @@ const TableList = () => {
           actionRef?.current?.reload();
         }}
       />
-
     </PageContainer>
   );
 };

@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {
-  ModalForm,
-  ProFormText,
-  ProFormRadio,
-  ProFormSwitch,
-} from '@ant-design/pro-form';
+import { ModalForm, ProFormText, ProFormRadio, ProFormSwitch } from '@ant-design/pro-form';
 import { updateUser, addUser } from '@/services/system/user';
 import { message } from 'antd';
 
@@ -22,14 +17,14 @@ export default (props) => {
     }
   }, [props]);
   const onFinish = async (value) => {
-    const request = props.currentData && props.currentData.id ? updateUser : addUser
+    const request = props.currentData && props.currentData.id ? updateUser : addUser;
     const success = await request({
       ...value,
-      status: value.status ? 1 : 0,
+      status: value.status ? 0 : 1,
       id: props.currentData ? props.currentData.id : undefined,
     });
     if (success) {
-      message.success('成功！')
+      message.success('成功！');
       props.handleVisible(false);
       if (props.reload) {
         props.reload();
@@ -70,11 +65,7 @@ export default (props) => {
         width="md"
         name="email"
       />
-      <ProFormText
-        label="昵称"
-        width="md"
-        name="nickname"
-      />
+      <ProFormText label="昵称" width="md" name="nickname" />
       <ProFormText
         label="手机号"
         width="md"
@@ -104,7 +95,7 @@ export default (props) => {
           {
             label: '女',
             value: '女',
-          }
+          },
         ]}
       />
       <ProFormText
@@ -119,7 +110,7 @@ export default (props) => {
         name="jobtitle"
       />
       {/* <ProFormTextArea width="md" name="description" label="描述" /> */}
-      <ProFormSwitch initialValue={false} label="是否启用" name="status" />
+      <ProFormSwitch initialValue={true} label="是否启用" name="status" />
     </ModalForm>
   );
 };

@@ -36,7 +36,11 @@ const Login = () => {
     try {
       // 登录
       const msg = await login({ ...values, type });
-      const { status, data } = msg;
+      const { status, data, message: mg } = msg;
+      if (status !== 0) {
+        message.error(mg || '登录失败');
+        return;
+      }
       if (status === 0 && data.token) {
         localStorage.setItem('token', data.token);
         const d = JSON.stringify(data);
