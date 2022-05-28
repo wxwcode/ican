@@ -125,6 +125,7 @@ export default defineConfig({
     {
       path: '/course',
       name: 'course',
+      access: 'canServer',
       icon: 'profile',
       routes: [
         {
@@ -148,6 +149,7 @@ export default defineConfig({
       path: '/system',
       name: 'system',
       icon: 'dashboard',
+      access: 'canAdmin',
       routes: [
         {
           path: '/system',
@@ -419,6 +421,10 @@ export default defineConfig({
     {
       path: '/',
       redirect: '/system/user',
+    },
+    {
+      path: '/welcome',
+      component: './Welcome',
     },
     {
       component: '404',

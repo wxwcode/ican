@@ -4,17 +4,19 @@ import React, { useState, useRef } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import AddForm from './components/AddForm';
+import RoleSet from './components/RoleSet';
 import { getUserList } from '@/services/system/user/';
 import { useModel } from 'umi';
 
 const TableList = () => {
   /** 新建窗口的弹窗 */
   const [createVisible, handleVisible] = useState(false);
+  const [roleVisible, handleRoleVisible] = useState(false);
   const actionRef = useRef();
   const [currentRow, setCurrentRow] = useState();
   /** 国际化配置 */
   const { initialState, loading, error, refresh, setInitialState } = useModel('@@initialState');
-  console.log(initialState, 'initialState');
+
   return (
     <PageContainer waterMarkProps={{ gapX: 120, gapY: 100 }}>
       <ProTable
@@ -42,7 +44,7 @@ const TableList = () => {
         columns={[
           {
             title: '操作',
-            width: 60,
+            width: 160,
             valueType: 'option',
             render: (_, record) => [
               <a
@@ -54,6 +56,16 @@ const TableList = () => {
                 }}
               >
                 编辑
+              </a>,
+              <a
+                key="config1"
+                onClick={() => {
+                  // formRef.current.edit(data)
+                  setCurrentRow({ ...record });
+                  handleRoleVisible(true);
+                }}
+              >
+                配置角色
               </a>,
             ],
           },
@@ -137,6 +149,15 @@ const TableList = () => {
           actionRef?.current?.reload();
         }}
       />
+      <RoleSet
+        visible={roleVisible}
+        userId={currentRow?.id || ''}
+        handleVisible={handleRoleVisible}
+        reload={() => {
+          actionRef?.current?.reload();
+        }}
+      />
+
     </PageContainer>
   );
 };

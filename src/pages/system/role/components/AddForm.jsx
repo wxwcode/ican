@@ -27,7 +27,7 @@ export default (props) => {
     const request = props.currentData && props.currentData.id ? updateRole : addRole
     const success = await request({
       ...value,
-      status: value.status ? 1 : 0,
+      status: value.status ? 0 : 1,
       id: props.currentData ? props.currentData.id : undefined,
     });
     if (success) {
@@ -62,7 +62,7 @@ export default (props) => {
         name="name"
       />
       <ProFormTextArea width="md" name="description" label="描述" />
-      <ProFormSwitch initialValue={false} label="是否启用" name="status" />
+      <ProFormSwitch initialValue={true} label="是否启用" name="status" />
     </ModalForm>
   );
 };

@@ -39,3 +39,38 @@ export async function updateUser(data) {
     data
   })
 }
+export async function queryUserRoles(userId) {
+  return request(`/api/manager/user/role/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+export async function getAllRoles() {
+  return request(`/api/security/role/list/all`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(({data, status}) => {
+    let list = []
+    if (status === 0 && data.length) {
+      list = data.map(item => ({
+        ...item,
+        label: item.name,
+        value: item.id
+      }))
+    }
+    return list;
+  });
+}
+export async function saveRole(data) {
+  return request(`/api/manager/user/role/relation`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data
+  })
+}

@@ -4,6 +4,7 @@ import { LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-de
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { FormattedMessage, history, SelectLang, useIntl, useModel } from 'umi';
+import { login } from '@/services/login';
 import styles from './index.less';
 
 const LoginMessage = ({ content }) => (
@@ -34,33 +35,28 @@ const Login = () => {
   const handleSubmit = async (values) => {
     try {
       // 登录
-      // const msg = await login({ ...values, type });
-      let msg = {};
-      if (values.password === 'kd007' && values.username === 'admin') {
-        msg = {
-          status: 'ok',
-          type: 'account',
-          currentAuthority: 'admin',
-        };
-      }
-      if (msg.status === 'ok') {
-        localStorage.setItem('login', true);
+      const msg = await login({ ...values, type });
+      const { status, data } = msg
+      if (status === 0 && data.token) {
+        localStorage.setItem('token', data.token)
+        const d = JSON.stringify(data)
+        localStorage.setItem('currentUser', d)
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
         });
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
 
+        /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query;
-        history.push(redirect || '/');
+        history.push(redirect || '/welcome');
         return;
       }
 
-      console.log(msg); // 如果失败去设置用户错误信息
+    // 如果失败去设置用户错误信息
 
       setUserLoginState(msg);
     } catch (error) {
@@ -119,25 +115,25 @@ const Login = () => {
             /> */}
           </Tabs>
 
-          {status === 'error' && loginType === 'account' && (
+          {status !== 0 && loginType === 'account' && (
             <LoginMessage
               content={intl.formatMessage({
                 id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
+                defaultMessage: '账户或密码错误',
               })}
             />
           )}
           {type === 'account' && (
             <>
               <ProFormText
-                name="username"
+                name="phone"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.username.placeholder',
-                  defaultMessage: '用户名: admin or user',
+                  defaultMessage: '用户名/手机号',
                 })}
                 rules={[
                   {
@@ -145,7 +141,7 @@ const Login = () => {
                     message: (
                       <FormattedMessage
                         id="pages.login.username.required"
-                        defaultMessage="请输入用户名!"
+                        defaultMessage="请输入用户名/手机号!"
                       />
                     ),
                   },
@@ -159,7 +155,7 @@ const Login = () => {
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.password.placeholder',
-                  defaultMessage: '密码: ant.design',
+                  defaultMessage: '请输入密码',
                 })}
                 rules={[
                   {

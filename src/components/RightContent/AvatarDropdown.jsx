@@ -33,6 +33,8 @@ const AvatarDropdown = ({ menu }) => {
 
       if (key === 'logout') {
         setInitialState((s) => ({ ...s, currentUser: undefined }));
+        localStorage.setItem('currentUser', null)
+        localStorage.setItem('token', null)
         loginOut();
         return;
       }
@@ -59,7 +61,7 @@ const AvatarDropdown = ({ menu }) => {
 
   const { currentUser } = initialState;
 
-  if (!currentUser || !currentUser.name) {
+  if (!currentUser || !currentUser.id) {
     return loading;
   }
 
@@ -88,8 +90,8 @@ const AvatarDropdown = ({ menu }) => {
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+        <Avatar size="small" className={styles.avatar} src={currentUser.avatar || '/logo.png'} alt="avatar" />
+        <span className={`${styles.name} anticon`}>{currentUser.name || currentUser.account || ''}</span>
       </span>
     </HeaderDropdown>
   );

@@ -13,7 +13,7 @@ const TableList = () => {
   const [currentRow, setCurrentRow] = useState();
   /** 国际化配置 */
   async function statusChange(record, action, v) {
-    const { status } = await updateRole({ id: record.id, status: v ? 1 : 0 });
+    const { status } = await updateRole({ id: record.id, status: v ? 0 : 1 });
     if (status === 0) action?.reload();
   }
   return (
@@ -102,7 +102,7 @@ const TableList = () => {
               return (
                 <Switch
                   size="small"
-                  checked={record.status === 1}
+                  checked={record.status === 0}
                   onChange={(v) => statusChange(record, action, v)}
                 />
               );
