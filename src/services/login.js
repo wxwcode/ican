@@ -7,8 +7,17 @@ export async function login(params) {
     headers: {
       'Content-Type': 'application/json',
     },
-    params
-  })
+    params,
+  });
+}
+export async function updatePw(data) {
+  return request(`/api/manager/reset/pass`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data,
+  });
 }
 export async function addUser(data) {
   return request(`/api/manager/user/createUser`, {
@@ -16,8 +25,8 @@ export async function addUser(data) {
     headers: {
       'Content-Type': 'application/json',
     },
-    data
-  })
+    data,
+  });
 }
 export async function updateUser(data) {
   return request(`/api/manager/user/updateUser`, {
@@ -25,6 +34,6 @@ export async function updateUser(data) {
     headers: {
       'Content-Type': 'application/json',
     },
-    data
-  })
+    data,
+  });
 }

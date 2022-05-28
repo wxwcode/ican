@@ -43,6 +43,12 @@ export default defineConfig({
           component: './user/Login',
         },
         {
+          path: '/user/set',
+          layout: false,
+          name: 'setting',
+          component: './user/setting',
+        },
+        {
           path: '/user',
           redirect: '/user/login',
         },

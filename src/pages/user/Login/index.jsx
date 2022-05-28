@@ -36,11 +36,11 @@ const Login = () => {
     try {
       // 登录
       const msg = await login({ ...values, type });
-      const { status, data } = msg
+      const { status, data } = msg;
       if (status === 0 && data.token) {
-        localStorage.setItem('token', data.token)
-        const d = JSON.stringify(data)
-        localStorage.setItem('currentUser', d)
+        localStorage.setItem('token', data.token);
+        const d = JSON.stringify(data);
+        localStorage.setItem('currentUser', d);
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
@@ -48,15 +48,21 @@ const Login = () => {
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
 
-        /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
+        /** 如果用户是第一次登录，就需要重新设置密码 */
+        if (data.firstLog) {
+          history.push('/user/set');
+          return false;
+        }
+
+        /** 此方法会跳转到 redirect 参数所在的位置 */
         const { query } = history.location;
         const { redirect } = query;
         history.push(redirect || '/welcome');
         return;
       }
 
-    // 如果失败去设置用户错误信息
+      // 如果失败去设置用户错误信息
 
       setUserLoginState(msg);
     } catch (error) {
